@@ -3,7 +3,7 @@ import FormularioDeRegistro from "../components/FormularioDeRegistro/FormularioD
 
 const routes = [
   { path: "/", Component: HomeScreen },
-  { path: "/register", FormularioDeRegistro}
+  { path: "/register", Component: FormularioDeRegistro}
 ];
 
 export default routes;
