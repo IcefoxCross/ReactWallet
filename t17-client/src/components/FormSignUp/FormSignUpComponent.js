@@ -8,18 +8,34 @@ import {
     Grid,
     Button,
 } from "@material-ui/core";
+import {
+    MESSAGE_STRING_FIRSTNAME,
+    MESSAGE_REQUIRED_FIRSTNAME,
+    MESSAGE_STRING_LASTNAME,
+    MESSAGE_REQUIRED_LASTNAME,
+    MESSAGE_STRING_EMAIL,
+    MESSAGE_EMAIL_EMAIL,
+    MESSAGE_REQUIRED_EMAIL,
+    MESSAGE_STRING_PASSWORD,
+    MESSAGE_MIN_PASSWORD,
+    MESSAGE_REQUIRED_PASSWORD,
+} from "../../constants/constants";
 
 const validationSchema = yup.object({
-    firstName: yup.string("Ingrese su nombre").required("Es necesario que ingrese su nombre"),
-    lastName: yup.string("Ingrese su apellido").required("Es necesario que ingrese su apellido"),
+    firstName: yup
+        .string(MESSAGE_STRING_FIRSTNAME)
+        .required(MESSAGE_REQUIRED_FIRSTNAME),
+    lastName: yup
+        .string(MESSAGE_STRING_LASTNAME)
+        .required(MESSAGE_REQUIRED_LASTNAME),
     email: yup
-        .string("Ingrese su correo")
-        .email("Ingrese un correo valido")
-        .required("Es necesario que ingrese su correo"),
+        .string(MESSAGE_STRING_EMAIL)
+        .email(MESSAGE_EMAIL_EMAIL)
+        .required(MESSAGE_REQUIRED_EMAIL),
     password: yup
-        .string("Ingrese su contraseña")
-        .min(6, "Su contraseña tiene que tener un minimo de 6 caracteres")
-        .required("Es necesario que ingrese su contraseña"),
+        .string(MESSAGE_STRING_PASSWORD)
+        .min(6, MESSAGE_MIN_PASSWORD)
+        .required(MESSAGE_REQUIRED_PASSWORD),
 });
 
 export default function FormSignUpComponent() {
