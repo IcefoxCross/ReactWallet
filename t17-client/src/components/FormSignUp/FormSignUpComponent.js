@@ -39,6 +39,7 @@ const validationSchema = yup.object({
 });
 
 export default function FormSignUpComponent() {
+
     const formik = useFormik({
         initialValues: {
             firstName: "",
@@ -65,6 +66,7 @@ export default function FormSignUpComponent() {
                         <TextField
                             id="firstName"
                             name="firstName"
+                            placeholder="Nombre"
                             label="Nombre"
                             variant="outlined"
                             fullWidth
@@ -78,12 +80,14 @@ export default function FormSignUpComponent() {
                                 formik.touched.firstName &&
                                 formik.errors.firstName
                             }
+                            data-testid="input-first-name"
                         />
                     </Grid>
                     <Grid item>
                         <TextField
                             id="lastName"
                             name="lastName"
+                            placeholder="Apellido"
                             label="Apellido"
                             variant="outlined"
                             fullWidth
@@ -97,12 +101,14 @@ export default function FormSignUpComponent() {
                                 formik.touched.lastName &&
                                 formik.errors.lastName
                             }
+                            data-testid="input-last-name"
                         />
                     </Grid>
                     <Grid item>
                         <TextField
                             id="email"
                             name="email"
+                            placeholder="Correo"
                             label="Correo"
                             variant="outlined"
                             fullWidth
@@ -115,6 +121,7 @@ export default function FormSignUpComponent() {
                             helperText={
                                 formik.touched.email && formik.errors.email
                             }
+                            data-testid="input-email"
                         />
                     </Grid>
                     <Grid item>
@@ -122,6 +129,7 @@ export default function FormSignUpComponent() {
                             id="password"
                             name="password"
                             label="Contraseña"
+                            placeholder="Contraseña"
                             type="password"
                             variant="outlined"
                             fullWidth
@@ -135,6 +143,7 @@ export default function FormSignUpComponent() {
                                 formik.touched.password &&
                                 formik.errors.password
                             }
+                            data-testid="input-password"
                         />
                     </Grid>
                     <Grid item>
@@ -144,6 +153,7 @@ export default function FormSignUpComponent() {
                             type="submit"
                             fullWidth
                             size="large"
+                            data-testid="signup-button"
                         >
                             Registrarse
                         </Button>
