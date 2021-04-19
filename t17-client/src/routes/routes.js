@@ -1,9 +1,9 @@
 import HomeScreen from "../screens/Home/HomeScreen";
-import FormularioDeRegistro from "../components/FormularioDeRegistro/FormularioDeRegistroComponents";
+import FormSignUp from "../components/FormSignUp/FormSignUpComponent";
 
 const routes = [
   { path: "/", Component: HomeScreen },
-  { path: "/register", Component: FormularioDeRegistro}
+  { path: "/register", Component: FormSignUp}
 ];
 
 export default routes;
