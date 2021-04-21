@@ -58,7 +58,7 @@ export default function FormSignUpComponent() {
             <form onSubmit={formik.handleSubmit}>
                 <Grid container spacing={3} direction="column">
                     <Grid item>
-                        <Typography variant="h5" color="initial">
+                        <Typography variant="h5" color="initial" data-testid="signup-title">
                             Registro
                         </Typography>
                     </Grid>
