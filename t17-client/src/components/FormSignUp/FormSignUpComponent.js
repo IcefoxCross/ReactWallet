@@ -54,8 +54,8 @@ export default function FormSignUpComponent() {
     });
 
     return (
-        <Container maxWidth="sm">
-            <form onSubmit={formik.handleSubmit}>
+        <Container maxWidth="sm" data-testid="onSubmit">
+            <form /* onSubmit={formik.handleSubmit} */ >
                 <Grid container spacing={3} direction="column">
                     <Grid item>
                         <Typography variant="h5" color="initial" data-testid="signup-title">
@@ -66,7 +66,6 @@ export default function FormSignUpComponent() {
                         <TextField
                             id="firstName"
                             name="firstName"
-                            placeholder="Nombre"
                             label="Nombre"
                             variant="outlined"
                             fullWidth
@@ -87,7 +86,6 @@ export default function FormSignUpComponent() {
                         <TextField
                             id="lastName"
                             name="lastName"
-                            placeholder="Apellido"
                             label="Apellido"
                             variant="outlined"
                             fullWidth
@@ -108,7 +106,6 @@ export default function FormSignUpComponent() {
                         <TextField
                             id="email"
                             name="email"
-                            placeholder="Correo"
                             label="Correo"
                             variant="outlined"
                             fullWidth
@@ -129,7 +126,6 @@ export default function FormSignUpComponent() {
                             id="password"
                             name="password"
                             label="Contraseña"
-                            placeholder="Contraseña"
                             type="password"
                             variant="outlined"
                             fullWidth
@@ -146,7 +142,7 @@ export default function FormSignUpComponent() {
                             data-testid="input-password"
                         />
                     </Grid>
-                    <Grid item>
+                    <Grid item >
                         <Button
                             variant="contained"
                             color="primary"
@@ -154,6 +150,7 @@ export default function FormSignUpComponent() {
                             fullWidth
                             size="large"
                             data-testid="signup-button"
+                            onClick={formik.handleSubmit}
                         >
                             Registrarse
                         </Button>
