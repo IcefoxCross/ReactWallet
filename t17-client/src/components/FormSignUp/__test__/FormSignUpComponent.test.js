@@ -1,6 +1,6 @@
 import React from 'react';
 import FormSignUp from "../FormSignUpComponent";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { act } from 'react-dom/test-utils';
 
@@ -69,7 +69,6 @@ describe('Sign Up form tests', () => {
         expect(getByLabelText("Correo")).toHaveValue('emailTest');
         expect(getByLabelText("Contraseña")).toHaveValue('123456');
     })
-
 })
 
 

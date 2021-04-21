@@ -54,8 +54,8 @@ export default function FormSignUpComponent() {
     });
 
     return (
-        <Container maxWidth="sm" data-testid="onSubmit">
-            <form /* onSubmit={formik.handleSubmit} */ >
+        <Container maxWidth="sm">
+            <form onSubmit={formik.handleSubmit} >
                 <Grid container spacing={3} direction="column">
                     <Grid item>
                         <Typography variant="h5" color="initial" data-testid="signup-title">
@@ -150,7 +150,6 @@ export default function FormSignUpComponent() {
                             fullWidth
                             size="large"
                             data-testid="signup-button"
-                            onClick={formik.handleSubmit}
                         >
                             Registrarse
                         </Button>
