@@ -50,3 +50,6 @@ Thumbs.db
 
 # vsc
 .vsc
+# Environment variables
+*.env
+
