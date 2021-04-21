@@ -48,6 +48,8 @@ Thumbs.db
 *.mov
 *.wmv
 
+# vsc
+.vsc
 # Environment variables
 *.env
 
