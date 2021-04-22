@@ -12,18 +12,21 @@ import {
   MESSAGE_REQUIRED_FTD_AMMOUNT,
   MESSAGE_NOT_A_NUMBER,
   MESSAGE_NEGATIVE_NUMBER,
+  MESSAGE_MAXIMUM_VALUE,
 } from "../../constants/constants";
 import CreateFixedTermDepositHooks from "./CreateFixedTermDepositHooks";
 
-const validationSchema = yup.object({
-  ftdAmount: yup
-    .number().typeError(MESSAGE_NOT_A_NUMBER).positive(MESSAGE_NEGATIVE_NUMBER)
-    .required(MESSAGE_REQUIRED_FTD_AMMOUNT),
-});
-
 export default function CreateFixedTermDepositComponent() {
 
-  const userAccountAmount = CreateFixedTermDepositHooks().userAccountAmount
+  const userAccountAmount = CreateFixedTermDepositHooks().userAccountAmount;
+
+  const validationSchema = yup.object({
+    ftdAmount: yup
+      .number().typeError(MESSAGE_NOT_A_NUMBER)
+      .positive(MESSAGE_NEGATIVE_NUMBER)
+      .max(userAccountAmount, MESSAGE_MAXIMUM_VALUE)
+      .required(MESSAGE_REQUIRED_FTD_AMMOUNT),
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -40,7 +43,7 @@ export default function CreateFixedTermDepositComponent() {
       <form onSubmit={formik.handleSubmit} >
         <Grid container spacing={3} direction="column">
           <Grid item>
-            <Typography variant="h5" color="initial" data-testid="signup-title">
+            <Typography variant="h5" color="initial" data-testid="create-ftd-title">
               Crear Plazo Fijo
             </Typography>
           </Grid>
@@ -61,7 +64,7 @@ export default function CreateFixedTermDepositComponent() {
                 formik.touched.ftdAmount &&
                 formik.errors.ftdAmount
               }
-              data-testid="input-first-name"
+              data-testid="input-amount"
             />
           </Grid>
           <Grid item >
@@ -74,7 +77,7 @@ export default function CreateFixedTermDepositComponent() {
               data-testid="create-ftd-button"
             >
               Crear
-                        </Button>
+            </Button>
           </Grid>
         </Grid>
       </form>
