@@ -18,10 +18,10 @@ module.exports = (sequelize, DataTypes) => {
     }
     Transaction.init(
         {
-            amount: { type: DataTypes.INTEGER, allowNull: false },
-            concept: { type: DataTypes.STRING, allowNull: false },
-            type: { type: DataTypes.STRING, allowNull: false },
-            accountId: { type: DataTypes.INTEGER, allowNull: false },
+            amount: DataTypes.INTEGER,
+            concept: DataTypes.STRING,
+            type: DataTypes.STRING,
+            accountId: DataTypes.INTEGER,
         },
         {
             sequelize,
