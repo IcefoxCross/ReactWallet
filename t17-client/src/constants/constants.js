@@ -12,3 +12,12 @@ export const MESSAGE_REQUIRED_PASSWORD = "Es necesario que ingrese su contraseñ
 
 // QUERY URLS
 export const MAIN_URL = "http://localhost:3000/";
+
+// Constants of CashOutComponent
+
+export const MESSAGE_REQUIRED_CASHOUT_AMMOUNT = "Es necesario que ingrese un monto"
+export const MESSAGE_NOT_A_NUMBER = "Es necesario que ingrese un número"
+export const MESSAGE_NEGATIVE_NUMBER = "El monto indicado es negativo"
+export const MESSAGE_MAXIMUM_VALUE = "No tienes tanto dinero en tu cuenta"
+export const MESSAGE_STRING_CONCEPT = "Ingrese un concepto"
+export const MESSAGE_REQUIRED_CONCEPT = "Es necesario que ingrese un concepto"

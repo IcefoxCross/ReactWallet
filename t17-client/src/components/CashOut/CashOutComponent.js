@@ -9,46 +9,37 @@ import {
   Button,
 } from "@material-ui/core";
 import {
-  MESSAGE_STRING_FIRSTNAME,
-  MESSAGE_REQUIRED_FIRSTNAME,
-  MESSAGE_STRING_LASTNAME,
-  MESSAGE_REQUIRED_LASTNAME,
-  MESSAGE_STRING_EMAIL,
-  MESSAGE_EMAIL_EMAIL,
-  MESSAGE_REQUIRED_EMAIL,
-  MESSAGE_STRING_PASSWORD,
-  MESSAGE_MIN_PASSWORD,
-  MESSAGE_REQUIRED_PASSWORD,
+  MESSAGE_REQUIRED_CASHOUT_AMMOUNT,
+  MESSAGE_NOT_A_NUMBER,
+  MESSAGE_NEGATIVE_NUMBER,
+  MESSAGE_MAXIMUM_VALUE,
+  MESSAGE_STRING_CONCEPT,
+  MESSAGE_REQUIRED_CONCEPT,
 } from "../../constants/constants";
 
-const validationSchema = yup.object({
-  amount: yup
-    .string(MESSAGE_STRING_FIRSTNAME)
-    .required(MESSAGE_REQUIRED_FIRSTNAME),
-  concept: yup
-    .string(MESSAGE_STRING_LASTNAME)
-    .required(MESSAGE_REQUIRED_LASTNAME),
-  email: yup
-    .string(MESSAGE_STRING_EMAIL)
-    .email(MESSAGE_EMAIL_EMAIL)
-    .required(MESSAGE_REQUIRED_EMAIL),
-  password: yup
-    .string(MESSAGE_STRING_PASSWORD)
-    .min(6, MESSAGE_MIN_PASSWORD)
-    .required(MESSAGE_REQUIRED_PASSWORD),
-});
+export default function CreateFixedTermDepositComponent() {
 
-export default function CashOutComponent() {
+  const userAccountAmount = 5000;
+
+  const validationSchema = yup.object({
+    cashoutAmount: yup
+      .number().typeError(MESSAGE_NOT_A_NUMBER)
+      .positive(MESSAGE_NEGATIVE_NUMBER)
+      .max(userAccountAmount, MESSAGE_MAXIMUM_VALUE)
+      .required(MESSAGE_REQUIRED_CASHOUT_AMMOUNT),
+    concept: yup
+      .string(MESSAGE_STRING_CONCEPT)
+      .required(MESSAGE_REQUIRED_CONCEPT),
+  });
 
   const formik = useFormik({
     initialValues: {
-      amount: "",
+      cashoutAmount: "",
       concept: "",
-      email: "",
-      password: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
+      values.date = new Date();
       alert(JSON.stringify(values, null, 2));
     },
   });
@@ -58,28 +49,28 @@ export default function CashOutComponent() {
       <form onSubmit={formik.handleSubmit} >
         <Grid container spacing={3} direction="column">
           <Grid item>
-            <Typography variant="h5" color="initial" data-testid="signup-title">
+            <Typography variant="h5" color="initial" data-testid="cashout-title">
               Retirar Dinero
-                        </Typography>
+            </Typography>
           </Grid>
           <Grid item>
             <TextField
-              id="amount"
-              name="amount"
+              id="cashoutAmount"
+              name="cashoutAmount"
               label="Monto"
               variant="outlined"
               fullWidth
-              value={formik.values.amount}
+              value={formik.values.cashoutAmount}
               onChange={formik.handleChange}
               error={
-                formik.touched.amount &&
-                Boolean(formik.errors.amount)
+                formik.touched.cashoutAmount &&
+                Boolean(formik.errors.cashoutAmount)
               }
               helperText={
-                formik.touched.amount &&
-                formik.errors.amount
+                formik.touched.cashoutAmount &&
+                formik.errors.cashoutAmount
               }
-              data-testid="input-first-name"
+              data-testid="input-amount"
             />
           </Grid>
           <Grid item>
@@ -99,7 +90,7 @@ export default function CashOutComponent() {
                 formik.touched.concept &&
                 formik.errors.concept
               }
-              data-testid="input-last-name"
+              data-testid="input-concept"
             />
           </Grid>
           <Grid item >
@@ -109,10 +100,10 @@ export default function CashOutComponent() {
               type="submit"
               fullWidth
               size="large"
-              data-testid="signup-button"
+              data-testid="cashout-button"
             >
-              Registrarse
-                        </Button>
+              Retirar
+            </Button>
           </Grid>
         </Grid>
       </form>
