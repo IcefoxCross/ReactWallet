@@ -40,7 +40,7 @@ export default function CreateFixedTermDepositComponent() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      values.date = new Date();
+      values.date = new Date().toISOString().slice(0, 10)
       alert(JSON.stringify(values, null, 2)); // To do: Disminuir la cuenta bancaria del user segun lo retirado.
     },
   });
