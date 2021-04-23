@@ -8,7 +8,7 @@ export const MESSAGE_EMAIL_EMAIL = "Ingrese un correo valido"
 export const MESSAGE_REQUIRED_EMAIL = "Es necesario que ingrese su correo"
 export const MESSAGE_STRING_PASSWORD = "Ingrese su contraseña"
 export const MESSAGE_MIN_PASSWORD = "Su contraseña tiene que tener un mínimo de 6 caracteres"
-export const MESSAGE_REQUIRED_PASSWORD ="Es necesario que ingrese su contraseña"
+export const MESSAGE_REQUIRED_PASSWORD = "Es necesario que ingrese su contraseña"
 
 // QUERY URLS
 export const MAIN_URL = "http://localhost:3000/";
