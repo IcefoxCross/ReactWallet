@@ -16,10 +16,11 @@ import {
   MESSAGE_STRING_CONCEPT,
   MESSAGE_REQUIRED_CONCEPT,
 } from "../../constants/constants";
+import CashOutComponentHooks from "./CashOutComponentHooks";
 
 export default function CreateFixedTermDepositComponent() {
 
-  const userAccountAmount = 5000;
+  const userAccountAmount = CashOutComponentHooks().userAccountAmount;
 
   const validationSchema = yup.object({
     cashoutAmount: yup
@@ -40,7 +41,7 @@ export default function CreateFixedTermDepositComponent() {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       values.date = new Date();
-      alert(JSON.stringify(values, null, 2));
+      alert(JSON.stringify(values, null, 2)); // To do: Disminuir la cuenta bancaria del user segun lo retirado.
     },
   });
 
