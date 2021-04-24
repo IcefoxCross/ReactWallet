@@ -7,6 +7,8 @@ const cors = require("cors");
 require("dotenv").config();
 
 // const componentRouter = require(routerFilePath)
+const indexRouter = require('./routes/index');
+const transactionRouter = require('./routes/transaction')
 const authRouter = require('./routes/auth');
 
 const app = express();
@@ -23,6 +25,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // app.use(routePath, componentRouter)
+app.use('/', indexRouter);
+app.use('/transaction', transactionRouter); //routePath de prueba
 app.use("/auth", authRouter);
 
 // catch 404 and forward to error handler
