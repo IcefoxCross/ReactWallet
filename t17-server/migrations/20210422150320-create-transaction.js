@@ -26,10 +26,10 @@ module.exports = {
             allowNull: false,
             type: Sequelize.INTEGER,
             onDelete: 'CASCADE',
-            references: {
-              model: 'Accounts',
-              key: 'id',
-            }
+            // references: {
+            //   model: 'Accounts',
+            //   key: 'id',
+            // }
         },
         createdAt: {
             allowNull: false,

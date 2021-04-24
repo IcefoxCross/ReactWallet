@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
          * */
 
         static associate(models) {
-            Transaction.belongsTo(models.Account, { as: "account" });
+            // Transaction.belongsTo(models.Account, { as: "account" });
         }
     }
     Transaction.init(

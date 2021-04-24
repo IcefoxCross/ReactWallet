@@ -9,7 +9,7 @@ const getTransactions = (req, res, next) => {
 
 const createTransaction = (req, res, next) => {
   transactionQuery
-    .createTransaction(req.body.amount, req.body.concept,)
+    .createTransaction(req.body.amount, req.body.concept, req.body.type, req.body.accountId)
     .then((result) => {
       res.status(consts.code_success).send(consts.SUCCESS_TRANSACTION_CREATE);
     })
