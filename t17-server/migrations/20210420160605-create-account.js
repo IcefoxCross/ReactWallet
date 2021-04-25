@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      currenctType: {
+      currencyType: {
         type: Sequelize.STRING,
         allowNull: false,
       },
