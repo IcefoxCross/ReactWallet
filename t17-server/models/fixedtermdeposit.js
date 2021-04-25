@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   FixedTermDeposit.init({
     amount: DataTypes.STRING,
-    closinngDate: DataTypes.DATE,
+    closingDate: DataTypes.DATE,
     userId: DataTypes.INTEGER
   }, {
     sequelize,

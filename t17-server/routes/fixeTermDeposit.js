@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { getFixedTermDeposits } = require('../controllers/fixedTermDeposits');
+const { getAllFixedTermDepositsByUser } = require('../controllers/fixedTermDeposits');
 
-router.get('/', getFixedTermDeposits); //Solo para probar
+// Get all fixed terms by user
+router.get('/:id', getAllFixedTermDepositsByUser);
+
 
 module.exports = router;
