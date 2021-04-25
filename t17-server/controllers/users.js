@@ -18,3 +18,14 @@ exports.createUser = async(req, res, password) => {
         res.status(consts.REQ_SUCCESS).send({msg: 'User created successfully'});
     }
 };
+
+exports.getUserByEmail = (req, res, email) => {
+    usersQuery.getUserByEmail(email)
+        .then(user => {
+            if (user) {
+                res.status(consts.REQ_SUCCESS).send(user.dataValue);
+            } else {
+                res.status(consts.REQ_404).send({msg: 'User not found'});
+            }
+        }).catch(err => res.status(consts.REQ_FAILED));
+};

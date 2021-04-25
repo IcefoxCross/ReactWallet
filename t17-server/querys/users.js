@@ -9,3 +9,9 @@ exports.createUser = (firstName, lastName, email, password) => {
         password
     });
 };
+
+exports.getUserByEmail = (email) => {
+    return User.findOne({
+        where: {email}
+    });
+};

@@ -13,4 +13,12 @@ router.post(
     authController.register
 );
 
+/* POST /login : Validate email & password to let User log in */
+router.post(
+    consts.URL_LOGIN,
+    authValidator.loginValuesFieldValidator,
+    authValidator.checkEmailPassword,
+    authController.login
+);
+
 module.exports = router;
