@@ -12,9 +12,18 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      closinngDate: {
+      closingDate: {
         type: Sequelize.DATE,
         allowNull: true,
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onDelete: 'CASCADE',
+        // references: {
+        //   model: 'Users',
+        //   key: 'id',
+        // }
       },
       createdAt: {
         allowNull: false,
