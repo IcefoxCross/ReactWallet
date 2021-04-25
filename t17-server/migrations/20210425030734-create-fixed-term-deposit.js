@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      closinngDate: {
+      closingDate: {
         type: Sequelize.DATE,
         allowNull: true,
       },
@@ -20,10 +20,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         onDelete: 'CASCADE',
-        references: {
-          model: 'Users',
-          key: 'id',
-        }
+        // references: {
+        //   model: 'Users',
+        //   key: 'id',
+        // }
       },
       createdAt: {
         allowNull: false,
