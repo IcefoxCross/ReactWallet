@@ -10,6 +10,7 @@ require("dotenv").config();
 const indexRouter = require('./routes/index');
 const transactionRouter = require('./routes/transaction')
 const authRouter = require('./routes/auth');
+const fixedTermDeposits = require('./routes/fixeTermDeposit')
 
 const app = express();
 app.use(cors());
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use('/', indexRouter);
 app.use('/transaction', transactionRouter); //routePath de prueba
 app.use("/auth", authRouter);
+app.use("/fixedTermDeposits", fixedTermDeposits) //routePath de prueba
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
