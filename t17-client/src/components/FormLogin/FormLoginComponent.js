@@ -22,8 +22,10 @@ import {
 } from "../../constants/constants";
 import NotRegisteredComponent from './NotRegisteredComponent';
 import { httpPost } from '../../services/httpServices';
+import updateUser from "../../store/user/action";
+import { connect } from 'react-redux';
 
-export default function FormLoginComponent() {
+function FormLoginComponent(props) {
     const history = useHistory();
 
     const validationSchema = yup.object({
@@ -49,6 +51,7 @@ export default function FormLoginComponent() {
                 localStorage.setItem('token', res.data.token);
                 alert(MESSAGE_LOGIN_SUCCESS);
                 history.push("/home");
+                props.updateUser('Datos_usuario') // Agregar info real del usuario
             }).catch(err => {
                 alert(MESSAGE_LOGIN_FAILED);
                 setSubmitting(false);
@@ -131,3 +134,11 @@ export default function FormLoginComponent() {
         </Container>
     )
 }
+
+function mapStateToProps(state) {
+    return {
+        user: state.user
+    }
+}
+
+export default connect(null, { updateUser })(FormLoginComponent);
