@@ -7,7 +7,7 @@ const AUTH_TOKEN = JSON.parse(getTokenLocalStorage) || '';
 const apiServices = axios.create({
     baseURL: URL_MAIN,
 });
-  
+
 if (AUTH_TOKEN !== '') {
     apiServices.defaults.headers.common['authorization'] = `Bearer ${AUTH_TOKEN}`;
 }
