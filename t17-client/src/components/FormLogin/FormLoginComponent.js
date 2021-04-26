@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from 'react-router-dom';
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -16,9 +16,16 @@ import {
     MESSAGE_STRING_PASSWORD,
     MESSAGE_MIN_PASSWORD,
     MESSAGE_REQUIRED_PASSWORD,
+    URL_LOGIN,
+    MESSAGE_LOGIN_FAILED,
+    MESSAGE_LOGIN_SUCCESS
 } from "../../constants/constants";
+import NotRegisteredComponent from './NotRegisteredComponent';
+import { httpPost } from '../../services/httpServices';
 
 export default function FormLoginComponent() {
+    const history = useHistory();
+
     const validationSchema = yup.object({
         email: yup
             .string(MESSAGE_STRING_EMAIL)
@@ -36,12 +43,23 @@ export default function FormLoginComponent() {
     };
 
     const onSubmit = (values) => {
-        alert(JSON.stringify(values, null, 2));
+        setSubmitting(true);
+        httpPost(URL_LOGIN, values)
+            .then(res => {
+                localStorage.setItem('token', res.data.token);
+                alert(MESSAGE_LOGIN_SUCCESS);
+                history.push("/home");
+            }).catch(err => {
+                alert(MESSAGE_LOGIN_FAILED);
+                setSubmitting(false);
+            });
     };
 
     const formik = useFormik({
         initialValues, validationSchema, onSubmit
     });
+
+    const [submitting, setSubmitting] = useState(false);
 
     return (
         <Container maxWidth="sm">
@@ -92,6 +110,9 @@ export default function FormLoginComponent() {
                             data-testid="input-password"
                         />
                     </Grid>
+                    <Grid item>
+                        <NotRegisteredComponent />
+                    </Grid>
                     <Grid item >
                         <Button
                             variant="contained"
@@ -100,6 +121,7 @@ export default function FormLoginComponent() {
                             fullWidth
                             size="large"
                             data-testid="signup-button"
+                            disabled={submitting}
                         >
                             Ingresar
                         </Button>

@@ -11,7 +11,8 @@ export const MESSAGE_MIN_PASSWORD = "Su contraseña tiene que tener un mínimo d
 export const MESSAGE_REQUIRED_PASSWORD = "Es necesario que ingrese su contraseña"
 
 // QUERY URLS
-export const MAIN_URL = "http://localhost:3000/";
+export const URL_MAIN = "http://localhost:3000/";
+export const URL_LOGIN = "/auth/login";
 
 // Constants of CashOutComponent
 
@@ -21,3 +22,7 @@ export const MESSAGE_NEGATIVE_NUMBER = "El monto indicado es negativo"
 export const MESSAGE_MAXIMUM_VALUE = "No tienes tanto dinero en tu cuenta"
 export const MESSAGE_STRING_CONCEPT = "Ingrese un concepto"
 export const MESSAGE_REQUIRED_CONCEPT = "Es necesario que ingrese un concepto"
+
+// Constants Login/Register
+export const MESSAGE_LOGIN_FAILED = "Hubo un error en el proceso. Revisa que los campos esten escritos correctamente"
+export const MESSAGE_LOGIN_SUCCESS = "Has ingresado de forma correcta. Redirigiendo..."

@@ -1,22 +1,16 @@
 import axios from 'axios';
-import { MAIN_URL } from '../constants/constants';
+import { URL_MAIN } from '../constants/constants';
 
 const getTokenLocalStorage = JSON.stringify(localStorage.getItem('token'));
 const AUTH_TOKEN = JSON.parse(getTokenLocalStorage) || '';
 
 const apiServices = axios.create({
-    baseURL: MAIN_URL,
+    baseURL: URL_MAIN,
 });
   
 if (AUTH_TOKEN !== '') {
     apiServices.defaults.headers.common['authorization'] = `Bearer ${AUTH_TOKEN}`;
 }
-
-const config = {
-    headers: {
-        "Content-Type": "multipart/form-data",
-    }
-};
 
 // GET All
 export const httpGetAll = (path) => {
@@ -28,18 +22,17 @@ export const httpGetOne = (path, id) => {
     return apiServices.get(`${path}/${id}`);
 };
 
-// POST (data formatted as form-data)
+// POST
 export const httpPost = (path, data) => {
-    return apiServices.post(path, data, config);
+    return apiServices.post(path, data);
 };
 
-// UPDATE (data formatted as form-data)
+// UPDATE
 export const httpPatch = (path, id, data) => {
-    return apiServices.patch(`${path}/${id}`, data, config);
+    return apiServices.patch(`${path}/${id}`, data);
 };
 
 // DELETE
 export const httpDelete = (path, id) => {
     return apiServices.delete(`${path}/${id}`);
 };
-
