@@ -7,6 +7,8 @@ import {
 import CurrencySwitch from './CurrencySwitch';
 
 const BalanceComponent = () => {
+  const [pesosAccountAmount, setPesosAccountAmount] = useState(0)
+  const [usdAccountAmount, setUsdAccountAmount] = useState(1)
   const [currencySign, setCurrencySign] = useState('$');
   const [usdChecked, setUsdChecked] = useState(false);
 
@@ -19,17 +21,16 @@ const BalanceComponent = () => {
       <Grid container spacing={3} direction="column">
         <Grid item>
           <Typography variant="h5" color="initial" data-testid="cashout-title">
-            Balance
+            Balance cuenta {usdChecked ? 'DÓLARES' : 'PESOS'}
           </Typography>
         </Grid>
         <Grid item>
           <Typography variant="h2" color="initial" data-testid="cashout-title">
-            {currencySign}5000
+            {currencySign}{usdChecked ? usdAccountAmount : pesosAccountAmount}
           </Typography>
         </Grid>
         <Grid item>
           <CurrencySwitch setUsdChecked={setUsdChecked} />
-          {console.log(usdChecked)}
         </Grid>
       </Grid>
     </Container>
