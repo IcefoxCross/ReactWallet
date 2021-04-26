@@ -20,7 +20,7 @@ import { createTransaction } from "./services/CashOutServices";
 import Swal from 'sweetalert2'
 
 export default function CreateFixedTermDepositComponent() {
-  const userAccountAmount = 5000
+  const userAccountAmount = 5000 // To do: Get real Account balance
 
   const validationSchema = yup.object({
     amount: yup
