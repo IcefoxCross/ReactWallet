@@ -1,79 +1,39 @@
+import React, { useEffect, useState } from 'react'
 import {
-  Avatar,
-  Box,
-  Card,
-  CardContent,
+  Typography,
+  Container,
   Grid,
-  Typography
-} from '@material-ui/core';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import MoneyIcon from '@material-ui/icons/Money';
-import { red } from '@material-ui/core/colors';
+} from "@material-ui/core";
+import CurrencySwitch from './CurrencySwitch';
 
-const BalanceComponent = (props) => (
-  <Card
-    sx={{ height: '100%' }}
-    {...props}
-  >
-    <CardContent>
-      <Grid
-        container
-        spacing={3}
-        sx={{ justifyContent: 'space-between' }}
-      >
+const BalanceComponent = () => {
+  const [currencySign, setCurrencySign] = useState('$');
+  const [usdChecked, setUsdChecked] = useState(false);
+
+  useEffect(() => {
+    setCurrencySign(usdChecked ? 'U$S' : '$')
+  }, [usdChecked])
+
+  return (
+    <Container maxWidth="sm">
+      <Grid container spacing={3} direction="column">
         <Grid item>
-          <Typography
-            color="textSecondary"
-            gutterBottom
-            variant="h6"
-          >
-            BUDGET
-          </Typography>
-          <Typography
-            color="textPrimary"
-            variant="h3"
-          >
-            $24,000
+          <Typography variant="h5" color="initial" data-testid="cashout-title">
+            Balance
           </Typography>
         </Grid>
         <Grid item>
-          <Avatar
-            sx={{
-              backgroundColor: red[600],
-              height: 56,
-              width: 56
-            }}
-          >
-            <MoneyIcon />
-          </Avatar>
+          <Typography variant="h2" color="initial" data-testid="cashout-title">
+            {currencySign}5000
+          </Typography>
+        </Grid>
+        <Grid item>
+          <CurrencySwitch setUsdChecked={setUsdChecked} />
+          {console.log(usdChecked)}
         </Grid>
       </Grid>
-      <Box
-        sx={{
-          pt: 2,
-          display: 'flex',
-          alignItems: 'center'
-        }}
-      >
-        <ArrowDownwardIcon sx={{ color: red[900] }} />
-        <Typography
-          sx={{
-            color: red[900],
-            mr: 1
-          }}
-          variant="body2"
-        >
-          12%
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="caption"
-        >
-          Since last month
-        </Typography>
-      </Box>
-    </CardContent>
-  </Card>
-);
+    </Container>
+  )
+}
 
-export default BalanceComponent;
+export default BalanceComponent
