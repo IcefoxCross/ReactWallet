@@ -16,14 +16,14 @@ import {
   MESSAGE_STRING_CONCEPT,
   MESSAGE_REQUIRED_CONCEPT,
 } from "../../constants/constants";
-import CashOutComponentHooks from "./CashOutComponentHooks";
+import { createTransaction } from "./services/CashOutServices";
+import Swal from 'sweetalert2'
 
 export default function CreateFixedTermDepositComponent() {
-
-  const userAccountAmount = CashOutComponentHooks().userAccountAmount;
+  const userAccountAmount = 5000
 
   const validationSchema = yup.object({
-    cashoutAmount: yup
+    amount: yup
       .number().typeError(MESSAGE_NOT_A_NUMBER)
       .positive(MESSAGE_NEGATIVE_NUMBER)
       .max(userAccountAmount, MESSAGE_MAXIMUM_VALUE)
@@ -35,13 +35,22 @@ export default function CreateFixedTermDepositComponent() {
 
   const formik = useFormik({
     initialValues: {
-      cashoutAmount: "",
+      amount: "",
       concept: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      values.date = new Date().toISOString().slice(0, 10)
-      alert(JSON.stringify(values, null, 2)); // To do: Disminuir la cuenta bancaria del user segun lo retirado.
+    onSubmit: (values, { resetForm }) => {
+      values.type = 'cashout';
+      values.accountId = 1;
+      values.createdAt = new Date();
+      values.updatedAt = new Date();
+      createTransaction(values) // To do: Disminuir la cuenta bancaria del user segun lo retirado.
+      resetForm({ values: '' })
+      Swal.fire(
+        '¡Exito!',
+        'Transacción realizada.',
+        'success'
+      )
     },
   });
 
@@ -56,20 +65,20 @@ export default function CreateFixedTermDepositComponent() {
           </Grid>
           <Grid item>
             <TextField
-              id="cashoutAmount"
-              name="cashoutAmount"
+              id="amount"
+              name="amount"
               label="Monto"
               variant="outlined"
               fullWidth
-              value={formik.values.cashoutAmount}
+              value={formik.values.amount}
               onChange={formik.handleChange}
               error={
-                formik.touched.cashoutAmount &&
-                Boolean(formik.errors.cashoutAmount)
+                formik.touched.amount &&
+                Boolean(formik.errors.amount)
               }
               helperText={
-                formik.touched.cashoutAmount &&
-                formik.errors.cashoutAmount
+                formik.touched.amount &&
+                formik.errors.amount
               }
               data-testid="input-amount"
             />
