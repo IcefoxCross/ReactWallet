@@ -13,6 +13,7 @@ export const MESSAGE_REQUIRED_PASSWORD = "Es necesario que ingrese su contraseñ
 // QUERY URLS
 export const URL_MAIN = "http://localhost:3000/";
 export const URL_LOGIN = "/auth/login";
+export const URL_REGISTER = "/auth/register";
 
 // Constants of CashOutComponent
 
@@ -26,3 +27,14 @@ export const MESSAGE_REQUIRED_CONCEPT = "Es necesario que ingrese un concepto"
 // Constants Login/Register
 export const MESSAGE_LOGIN_FAILED = "Hubo un error en el proceso. Revisa que los campos esten escritos correctamente"
 export const MESSAGE_LOGIN_SUCCESS = "Has ingresado de forma correcta. Redirigiendo..."
+export const MESSAGE_REGISTER_FAILED = "Hubo un error en el proceso. Revisa que los campos esten escritos correctamente"
+export const MESSAGE_REGISTER_SUCCESS = "El usuario fue creado de forma correcta. Redirigiendo..."
+
+// Alerts
+export const CONFIRM_BUTTON = "Sí";
+export const CONFIRM_BUTTON_CANCEL = "Cancelar";
+export const INFO_TITLE = "Información importante";
+export const INFO_BUTTON = "Entendido!";
+export const SUCCESS_TITLE = "Confirmado!";
+export const ERROR_TITLE = "Oops...";
+export const CONFIRM_TITLE = "¿Está seguro?";

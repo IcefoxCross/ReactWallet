@@ -22,6 +22,7 @@ import {
 } from "../../constants/constants";
 import NotRegisteredComponent from './NotRegisteredComponent';
 import { httpPost } from '../../services/httpServices';
+import { SuccessAlertComponent, ErrorAlertComponent } from '../Alerts/AlertsComponent';
 
 export default function FormLoginComponent() {
     const history = useHistory();
@@ -47,11 +48,9 @@ export default function FormLoginComponent() {
         httpPost(URL_LOGIN, values)
             .then(res => {
                 localStorage.setItem('token', res.data.token);
-                alert(MESSAGE_LOGIN_SUCCESS);
-                history.push("/home");
+                SuccessAlertComponent(MESSAGE_LOGIN_SUCCESS).then(() => history.push("/home"));
             }).catch(err => {
-                alert(MESSAGE_LOGIN_FAILED);
-                setSubmitting(false);
+                ErrorAlertComponent(MESSAGE_LOGIN_FAILED).then(() => setSubmitting(false));
             });
     };
 

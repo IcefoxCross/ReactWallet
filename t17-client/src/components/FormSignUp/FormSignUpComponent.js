@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useHistory } from 'react-router-dom';
 import { useFormik } from "formik";
 import * as yup from "yup";
 import {
@@ -19,7 +20,12 @@ import {
     MESSAGE_STRING_PASSWORD,
     MESSAGE_MIN_PASSWORD,
     MESSAGE_REQUIRED_PASSWORD,
+    MESSAGE_REGISTER_FAILED,
+    MESSAGE_REGISTER_SUCCESS,
+    URL_REGISTER
 } from "../../constants/constants";
+import { httpPost } from '../../services/httpServices';
+import { SuccessAlertComponent, ErrorAlertComponent } from '../Alerts/AlertsComponent';
 
 const validationSchema = yup.object({
     firstName: yup
@@ -40,6 +46,19 @@ const validationSchema = yup.object({
 
 export default function FormSignUpComponent() {
 
+    const history = useHistory();
+    const [submitting, setSubmitting] = useState(false);
+
+    const onSubmit = (values) => {
+        setSubmitting(true);
+        httpPost(URL_REGISTER, values)
+            .then(res => {
+                SuccessAlertComponent(MESSAGE_REGISTER_SUCCESS).then(() => history.push("/login"));
+            }).catch(err => {
+                ErrorAlertComponent(MESSAGE_REGISTER_FAILED).then(() => setSubmitting(false));
+            });
+    };
+
     const formik = useFormik({
         initialValues: {
             firstName: "",
@@ -48,9 +67,7 @@ export default function FormSignUpComponent() {
             password: "",
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
-        },
+        onSubmit,
     });
 
     return (
@@ -150,6 +167,7 @@ export default function FormSignUpComponent() {
                             fullWidth
                             size="large"
                             data-testid="signup-button"
+                            disabled={submitting}
                         >
                             Registrarse
                         </Button>
