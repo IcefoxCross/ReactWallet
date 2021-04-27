@@ -1,12 +1,8 @@
-import axios from 'axios';
-import { MAIN_URL } from '../../../constants/constants';
+import { httpPost } from '../../../services/httpServices';
 
 export const createTransaction = async (data) => {
   try {
-    const response = await axios.post(
-      `${MAIN_URL}transaction`,
-      data
-    );
+    const response = await httpPost('transaction', data)
     return response;
   } catch (err) {
     return console.log(err);

@@ -40,7 +40,7 @@ export default function CreateFixedTermDepositComponent() {
     },
     validationSchema: validationSchema,
     onSubmit: (values, { resetForm }) => {
-      values.type = 'cashout';
+      values.type = 'payment';
       values.accountId = 1;
       values.createdAt = new Date();
       values.updatedAt = new Date();
