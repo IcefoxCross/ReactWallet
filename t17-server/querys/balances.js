@@ -7,7 +7,7 @@ queryGetBalanceByAccount = async (id) => {
       accountId: id,
     },
   });
-  return fixedTermDeposits
+  return balances
 };
 
 module.exports = { queryGetBalanceByAccount };

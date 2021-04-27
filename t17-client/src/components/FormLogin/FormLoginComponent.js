@@ -22,9 +22,12 @@ import {
 } from "../../constants/constants";
 import NotRegisteredComponent from './NotRegisteredComponent';
 import { httpPost } from '../../services/httpServices';
+import updateUser from "../../store/user/action";
+import updateIsAuth from "../../store/isAuth/action";
+import { connect } from 'react-redux';
 import { SuccessAlertComponent, ErrorAlertComponent } from '../Alerts/AlertsComponent';
 
-export default function FormLoginComponent() {
+function FormLoginComponent(props) {
     const history = useHistory();
 
     const validationSchema = yup.object({
@@ -48,6 +51,11 @@ export default function FormLoginComponent() {
         httpPost(URL_LOGIN, values)
             .then(res => {
                 localStorage.setItem('token', res.data.token);
+                alert(MESSAGE_LOGIN_SUCCESS);
+                history.push("/home");
+                delete res.data.user.password;
+                props.updateIsAuth(true);
+                props.updateUser(res.data.user);
                 SuccessAlertComponent(MESSAGE_LOGIN_SUCCESS).then(() => history.push("/home"));
             }).catch(err => {
                 ErrorAlertComponent(MESSAGE_LOGIN_FAILED).then(() => setSubmitting(false));
@@ -130,3 +138,12 @@ export default function FormLoginComponent() {
         </Container>
     )
 }
+
+function mapStateToProps(state) {
+    return {
+        user: state.user,
+        isAuth: state.isAuth,
+    }
+}
+
+export default connect(null, { updateUser, updateIsAuth })(FormLoginComponent);
