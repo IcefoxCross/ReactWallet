@@ -23,6 +23,7 @@ import {
 import NotRegisteredComponent from './NotRegisteredComponent';
 import { httpPost } from '../../services/httpServices';
 import updateUser from "../../store/user/action";
+import updateIsAuth from "../../store/isAuth/action";
 import { connect } from 'react-redux';
 
 function FormLoginComponent(props) {
@@ -51,7 +52,9 @@ function FormLoginComponent(props) {
                 localStorage.setItem('token', res.data.token);
                 alert(MESSAGE_LOGIN_SUCCESS);
                 history.push("/home");
-                props.updateUser(res.data.user) // Agregar info real del usuario
+                delete res.data.user.password;
+                props.updateIsAuth(true);
+                props.updateUser(res.data.user);
             }).catch(err => {
                 alert(MESSAGE_LOGIN_FAILED);
                 setSubmitting(false);
@@ -137,8 +140,9 @@ function FormLoginComponent(props) {
 
 function mapStateToProps(state) {
     return {
-        user: state.user
+        user: state.user,
+        isAuth: state.isAuth,
     }
 }
 
-export default connect(null, { updateUser })(FormLoginComponent);
+export default connect(null, { updateUser, updateIsAuth })(FormLoginComponent);
