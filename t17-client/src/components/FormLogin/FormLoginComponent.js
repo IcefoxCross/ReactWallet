@@ -51,7 +51,7 @@ function FormLoginComponent(props) {
                 localStorage.setItem('token', res.data.token);
                 alert(MESSAGE_LOGIN_SUCCESS);
                 history.push("/home");
-                props.updateUser('Datos_usuario') // Agregar info real del usuario
+                props.updateUser(res.data.user) // Agregar info real del usuario
             }).catch(err => {
                 alert(MESSAGE_LOGIN_FAILED);
                 setSubmitting(false);

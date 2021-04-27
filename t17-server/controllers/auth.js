@@ -17,7 +17,7 @@ exports.register = (req, res) => {
     return usersController.createUser(req, res, password);
 };
 
-exports.login = async(req, res) => {
+exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await usersQuery.getUserByEmail(email);
@@ -28,13 +28,13 @@ exports.login = async(req, res) => {
                 const validPassword = await bcrypt.compare(password, user.dataValues.password);
                 if (validPassword) {
                     const token = generateAuthToken(user.dataValues).token;
-                    res.status(consts.REQ_SUCCESS).send({msg: 'User logged in successfully', token});
+                    res.status(consts.REQ_SUCCESS).send({ msg: 'User logged in successfully', token, user });
                 } else {
-                    res.status(consts.REQ_FAILED).send({msg: 'Password not valid'});
+                    res.status(consts.REQ_FAILED).send({ msg: 'Password not valid' });
                 }
             }
         } else {
-            res.status(consts.REQ_404).send({msg: 'User not found'});
+            res.status(consts.REQ_404).send({ msg: 'User not found' });
         }
     } catch (e) {
         res.status(consts.REQ_FAILED);
