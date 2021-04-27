@@ -56,6 +56,7 @@ export default function SidebarComponent() {
                 <List>
                     <SidebarItemComponent IconComponent={HomeIcon} name="Home" path={"/home"} />
                 </List>
+                {/* Si esta logeado, mostrar Divider y List */}
                 <Divider />
                 <List>
                     {userOptions.map(option => (
@@ -65,6 +66,7 @@ export default function SidebarComponent() {
                 </List>
                 <Divider />
                 <List>
+                {/* Si esta logeado, mostrar Logout, sino Login */}
                 <SidebarItemComponent IconComponent={VpnKeyIcon} name="Login" path={"/login"} />
                 </List>
             </div>

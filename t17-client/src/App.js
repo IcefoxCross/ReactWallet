@@ -7,11 +7,14 @@ import Box from '@material-ui/core/Box';
 import SidebarComponent from './components/Sidebar/SidebarComponent';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex"
+  },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
     backgroundColor: theme.palette.action.hover,
-    minHeight: "92vh",
+    minHeight: "92vh"
   },
 }));
 
@@ -19,7 +22,7 @@ function App() {
   const classes = useStyles();
   return (
     <Router>
-      <div className="App">
+      <div className={"App " + classes.root}>
         <SidebarComponent />
         <Box className={classes.content}>
           <Switch>
