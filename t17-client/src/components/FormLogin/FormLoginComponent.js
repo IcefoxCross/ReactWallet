@@ -25,6 +25,7 @@ import { httpPost } from '../../services/httpServices';
 import updateUser from "../../store/user/action";
 import updateIsAuth from "../../store/isAuth/action";
 import { connect } from 'react-redux';
+import { SuccessAlertComponent, ErrorAlertComponent } from '../Alerts/AlertsComponent';
 
 function FormLoginComponent(props) {
     const history = useHistory();
@@ -55,9 +56,9 @@ function FormLoginComponent(props) {
                 delete res.data.user.password;
                 props.updateIsAuth(true);
                 props.updateUser(res.data.user);
+                SuccessAlertComponent(MESSAGE_LOGIN_SUCCESS).then(() => history.push("/home"));
             }).catch(err => {
-                alert(MESSAGE_LOGIN_FAILED);
-                setSubmitting(false);
+                ErrorAlertComponent(MESSAGE_LOGIN_FAILED).then(() => setSubmitting(false));
             });
     };
 
