@@ -18,7 +18,7 @@ const getAllTransactionsByAccount = async (req, res, next) => {
 };
 
 const createTransaction = (req, res, next) => {
-  queryCreateTransaction(req.body.amount, req.body.concept, req.body.type, req.body.accountId)
+  queryCreateTransaction(req.body.currency, req.body.currencyType, req.body.amount, req.body.concept, req.body.type, req.body.accountId)
     .then((result) => {
       res.status(consts.code_success).send(consts.SUCCESS_TRANSACTION_CREATE);
     })

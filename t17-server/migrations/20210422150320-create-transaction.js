@@ -10,6 +10,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      currency: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      currencyType: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       amount: {
         allowNull: false,
         type: Sequelize.INTEGER,
