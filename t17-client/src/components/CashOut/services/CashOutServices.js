@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { MAIN_URL } from '../../../constants/constants';
+import { URL_MAIN } from '../../../constants/constants';
 
 export const createTransaction = async (data) => {
   try {
     const response = await axios.post(
-      `${MAIN_URL}transaction`,
+      `${URL_MAIN}transaction`,
       data
     );
     return response;
