@@ -25,6 +25,7 @@ import {
     URL_REGISTER
 } from "../../constants/constants";
 import { httpPost } from '../../services/httpServices';
+import { SuccessAlertComponent, ErrorAlertComponent } from '../Alerts/AlertsComponent';
 
 const validationSchema = yup.object({
     firstName: yup
@@ -52,11 +53,9 @@ export default function FormSignUpComponent() {
         setSubmitting(true);
         httpPost(URL_REGISTER, values)
             .then(res => {
-                alert(MESSAGE_REGISTER_SUCCESS);
-                history.push("/login");
+                SuccessAlertComponent(MESSAGE_REGISTER_SUCCESS).then(() => history.push("/login"));
             }).catch(err => {
-                alert(MESSAGE_REGISTER_FAILED);
-                setSubmitting(false);
+                ErrorAlertComponent(MESSAGE_REGISTER_FAILED).then(() => setSubmitting(false));
             });
     };
 
