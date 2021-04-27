@@ -1,9 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -17,7 +17,12 @@ import ContactsIcon from '@material-ui/icons/Contacts';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import SidebarItemComponent from './SidebarItemComponent';
+import { ConfirmAlertComponent } from '../Alerts/AlertsComponent';
+import { MESSAGE_LOGOUT_CONFIRM } from '../../constants/constants';
+import updateUser from "../../store/user/action";
+import updateIsAuth from "../../store/isAuth/action";
 
 const drawerWidth = 240;
 
@@ -44,8 +49,20 @@ const userOptions = [
     {name: "Billeteras", component: AccountBalanceWalletIcon, path: "/"},
 ];
 
-export default function SidebarComponent() {
+const SidebarComponent = (props) => {
     const classes = useStyles();
+
+    const onLogout = () => {
+        console.log(props.isAuth);
+        ConfirmAlertComponent(MESSAGE_LOGOUT_CONFIRM)
+            .then((result) => {
+                if (result.isConfirmed) {
+                    /*props.updateIsAuth(false);
+                    props.updateUser([]);*/
+                    alert("saliste");
+                }
+            });
+    };
 
     return (
         <Drawer
@@ -57,19 +74,41 @@ export default function SidebarComponent() {
                     <SidebarItemComponent IconComponent={HomeIcon} name="Home" path={"/home"} />
                 </List>
                 {/* Si esta logeado, mostrar Divider y List */}
-                <Divider />
-                <List>
-                    {userOptions.map(option => (
-                        <SidebarItemComponent key={option.name}
-                            IconComponent={option.component} name={option.name} path={option.path} />
-                    ))}
-                </List>
+                {props.isAuth.isAuth && (
+                    <>
+                    <Divider />
+                    <List>
+                        {userOptions.map(option => (
+                            <SidebarItemComponent key={option.name}
+                                IconComponent={option.component} name={option.name} path={option.path} />
+                        ))}
+                    </List>
+                    </>
+                )}
                 <Divider />
                 <List>
                 {/* Si esta logeado, mostrar Logout, sino Login */}
-                <SidebarItemComponent IconComponent={VpnKeyIcon} name="Login" path={"/login"} />
+                {!props.isAuth.isAuth ? (
+                    <>
+                        <ListItem button onClick={onLogout}>
+                            <ListItemIcon><MeetingRoomIcon /></ListItemIcon>
+                            <ListItemText primary={"Logout"} />
+                        </ListItem>
+                    </>
+                ) : (
+                    <SidebarItemComponent IconComponent={VpnKeyIcon} name="Login" path={"/login"} />
+                )}
                 </List>
             </div>
         </Drawer>
     )
 }
+
+function mapStateToProps(state) {
+    return {
+        user: state.user,
+        isAuth: state.isAuth,
+    }
+}
+
+export default connect(null, { updateUser, updateIsAuth })(SidebarComponent);

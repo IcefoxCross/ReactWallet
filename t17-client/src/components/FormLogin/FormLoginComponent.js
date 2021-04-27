@@ -53,8 +53,6 @@ function FormLoginComponent(props) {
         httpPost(URL_LOGIN, values)
             .then(res => {
                 localStorage.setItem('token', res.data.token);
-                alert(MESSAGE_LOGIN_SUCCESS);
-                history.push("/home");
                 delete res.data.user.password;
                 props.updateIsAuth(true);
                 props.updateUser(res.data.user);

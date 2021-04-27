@@ -29,6 +29,7 @@ export const MESSAGE_LOGIN_FAILED = "Hubo un error en el proceso. Revisa que los
 export const MESSAGE_LOGIN_SUCCESS = "Has ingresado de forma correcta. Redirigiendo..."
 export const MESSAGE_REGISTER_FAILED = "Hubo un error en el proceso. Revisa que los campos esten escritos correctamente"
 export const MESSAGE_REGISTER_SUCCESS = "El usuario fue creado de forma correcta. Redirigiendo..."
+export const MESSAGE_LOGOUT_CONFIRM = "Desea cerrar la sesion?"
 
 // Alerts
 export const CONFIRM_BUTTON = "Sí";
