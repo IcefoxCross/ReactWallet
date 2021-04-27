@@ -8,6 +8,8 @@ import {
     Container,
     Grid,
     Button,
+    Paper,
+    Box,
 } from "@material-ui/core";
 import {
     MESSAGE_STRING_FIRSTNAME,
@@ -72,108 +74,112 @@ export default function FormSignUpComponent() {
 
     return (
         <Container maxWidth="sm">
-            <form onSubmit={formik.handleSubmit} >
-                <Grid container spacing={3} direction="column">
-                    <Grid item>
-                        <Typography variant="h5" color="initial" data-testid="signup-title">
-                            Registro
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        <TextField
-                            id="firstName"
-                            name="firstName"
-                            label="Nombre"
-                            variant="outlined"
-                            fullWidth
-                            value={formik.values.firstName}
-                            onChange={formik.handleChange}
-                            error={
-                                formik.touched.firstName &&
-                                Boolean(formik.errors.firstName)
-                            }
-                            helperText={
-                                formik.touched.firstName &&
-                                formik.errors.firstName
-                            }
-                            data-testid="input-first-name"
-                        />
-                    </Grid>
-                    <Grid item>
-                        <TextField
-                            id="lastName"
-                            name="lastName"
-                            label="Apellido"
-                            variant="outlined"
-                            fullWidth
-                            value={formik.values.lastName}
-                            onChange={formik.handleChange}
-                            error={
-                                formik.touched.lastName &&
-                                Boolean(formik.errors.lastName)
-                            }
-                            helperText={
-                                formik.touched.lastName &&
-                                formik.errors.lastName
-                            }
-                            data-testid="input-last-name"
-                        />
-                    </Grid>
-                    <Grid item>
-                        <TextField
-                            id="email"
-                            name="email"
-                            label="Correo"
-                            variant="outlined"
-                            fullWidth
-                            value={formik.values.email}
-                            onChange={formik.handleChange}
-                            error={
-                                formik.touched.email &&
-                                Boolean(formik.errors.email)
-                            }
-                            helperText={
-                                formik.touched.email && formik.errors.email
-                            }
-                            data-testid="input-email"
-                        />
-                    </Grid>
-                    <Grid item>
-                        <TextField
-                            id="password"
-                            name="password"
-                            label="Contraseña"
-                            type="password"
-                            variant="outlined"
-                            fullWidth
-                            value={formik.values.password}
-                            onChange={formik.handleChange}
-                            error={
-                                formik.touched.password &&
-                                Boolean(formik.errors.password)
-                            }
-                            helperText={
-                                formik.touched.password &&
-                                formik.errors.password
-                            }
-                            data-testid="input-password"
-                        />
-                    </Grid>
-                    <Grid item >
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            type="submit"
-                            fullWidth
-                            size="large"
-                            data-testid="signup-button"
-                            disabled={submitting}
-                        >
-                            Registrarse
-                        </Button>
-                    </Grid>
-                </Grid>
-            </form>
+            <Paper>
+                <Box px={3}>
+                    <form onSubmit={formik.handleSubmit} >
+                        <Grid container spacing={3} direction="column">
+                            <Grid item>
+                                <Typography variant="h5" color="initial" data-testid="signup-title">
+                                    Registro
+                                </Typography>
+                            </Grid>
+                            <Grid item>
+                                <TextField
+                                    id="firstName"
+                                    name="firstName"
+                                    label="Nombre"
+                                    variant="outlined"
+                                    fullWidth
+                                    value={formik.values.firstName}
+                                    onChange={formik.handleChange}
+                                    error={
+                                        formik.touched.firstName &&
+                                        Boolean(formik.errors.firstName)
+                                    }
+                                    helperText={
+                                        formik.touched.firstName &&
+                                        formik.errors.firstName
+                                    }
+                                    data-testid="input-first-name"
+                                />
+                            </Grid>
+                            <Grid item>
+                                <TextField
+                                    id="lastName"
+                                    name="lastName"
+                                    label="Apellido"
+                                    variant="outlined"
+                                    fullWidth
+                                    value={formik.values.lastName}
+                                    onChange={formik.handleChange}
+                                    error={
+                                        formik.touched.lastName &&
+                                        Boolean(formik.errors.lastName)
+                                    }
+                                    helperText={
+                                        formik.touched.lastName &&
+                                        formik.errors.lastName
+                                    }
+                                    data-testid="input-last-name"
+                                />
+                            </Grid>
+                            <Grid item>
+                                <TextField
+                                    id="email"
+                                    name="email"
+                                    label="Correo"
+                                    variant="outlined"
+                                    fullWidth
+                                    value={formik.values.email}
+                                    onChange={formik.handleChange}
+                                    error={
+                                        formik.touched.email &&
+                                        Boolean(formik.errors.email)
+                                    }
+                                    helperText={
+                                        formik.touched.email && formik.errors.email
+                                    }
+                                    data-testid="input-email"
+                                />
+                            </Grid>
+                            <Grid item>
+                                <TextField
+                                    id="password"
+                                    name="password"
+                                    label="Contraseña"
+                                    type="password"
+                                    variant="outlined"
+                                    fullWidth
+                                    value={formik.values.password}
+                                    onChange={formik.handleChange}
+                                    error={
+                                        formik.touched.password &&
+                                        Boolean(formik.errors.password)
+                                    }
+                                    helperText={
+                                        formik.touched.password &&
+                                        formik.errors.password
+                                    }
+                                    data-testid="input-password"
+                                />
+                            </Grid>
+                            <Grid item >
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    type="submit"
+                                    fullWidth
+                                    size="large"
+                                    data-testid="signup-button"
+                                    disabled={submitting}
+                                >
+                                    Registrarse
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </form>
+                </Box>
+            </Paper>
         </Container>
     );
 }
