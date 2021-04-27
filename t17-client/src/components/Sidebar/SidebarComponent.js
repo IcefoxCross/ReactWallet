@@ -53,13 +53,12 @@ const SidebarComponent = (props) => {
     const classes = useStyles();
 
     const onLogout = () => {
-        console.log(props.isAuth);
         ConfirmAlertComponent(MESSAGE_LOGOUT_CONFIRM)
             .then((result) => {
                 if (result.isConfirmed) {
-                    /*props.updateIsAuth(false);
-                    props.updateUser([]);*/
-                    alert("saliste");
+                    props.updateIsAuth(false);
+                    props.updateUser([]);
+                    window.localStorage.removeItem('token');
                 }
             });
     };
@@ -88,7 +87,7 @@ const SidebarComponent = (props) => {
                 <Divider />
                 <List>
                 {/* Si esta logeado, mostrar Logout, sino Login */}
-                {!props.isAuth.isAuth ? (
+                {props.isAuth.isAuth ? (
                     <>
                         <ListItem button onClick={onLogout}>
                             <ListItemIcon><MeetingRoomIcon /></ListItemIcon>
@@ -111,4 +110,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(null, { updateUser, updateIsAuth })(SidebarComponent);
+export default connect(mapStateToProps, { updateUser, updateIsAuth })(SidebarComponent);
