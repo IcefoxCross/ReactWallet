@@ -1,11 +1,5 @@
-const express = require('express');
-const router = express.Router();
 const transactionQuery = require("../querys/transaction");
 const consts = require("../constants/consts")
-
-const getTransactions = (req, res, next) => {
-  res.status(200).send({ success: true });
-};
 
 const createTransaction = (req, res, next) => {
   transactionQuery
@@ -17,5 +11,21 @@ const createTransaction = (req, res, next) => {
       res.status(consts.code_failure).send({ message: err.message })
     );
 };
+//Get transaction by type
+const getTransactions = (req, res, next) => {
+  const typeTransaction = req.params.type;
+  const accountId = parseInt(req.params.accountId);
+  transactionQuery
+      .getTransactions(typeTransaction, accountId)
+      .then((result) => {
+          res.status(consts.code_success).send(result);
+      })
+      .catch((err) =>
+          res.status(consts.code_failure).send({ message: err.message })
+      );
+}
 
-module.exports = { getTransactions, createTransaction };
+module.exports = {
+    createTransaction,
+    getTransactions,
+};
