@@ -1,9 +1,18 @@
 const transactionQuery = require("../querys/transaction");
 const consts = require("../constants/consts")
 
+const getAllTransactionsByAccount = async (req, res, next) => {
+  const accountId = parseInt(req.params.id);
+  const transactionsByAccount = await queryGetAllTransactionsByAccount(accountId);
+  if (transactionsByAccount) {
+    res.status(consts.code_success).send(transactionsByAccount);
+  } else {
+    res.status(consts.CODE_FAILURE_404);
+  }
+};
+
 const createTransaction = (req, res, next) => {
-  transactionQuery
-    .createTransaction(req.body.amount, req.body.concept, req.body.type, req.body.accountId)
+  queryCreateTransaction(req.body.currency, req.body.currencyType, req.body.amount, req.body.concept, req.body.type, req.body.accountId)
     .then((result) => {
       res.status(consts.code_success).send(consts.SUCCESS_TRANSACTION_CREATE);
     })
@@ -25,7 +34,4 @@ const getTransactions = (req, res, next) => {
       );
 }
 
-module.exports = {
-    createTransaction,
-    getTransactions,
-};
+module.exports = { getTransactions, getAllTransactionsByAccount, createTransaction, getTransactions };

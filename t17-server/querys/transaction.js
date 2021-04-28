@@ -1,9 +1,18 @@
 const db = require("../models");
 const Transaction = db.Transaction;
 
-const createTransaction = async (amount, concept, type, accountId) => {
+queryGetAllTransactionsByAccount = async (id) => {
+  const transactions = await Transaction.findAll({
+    where: {
+      accountId: id,
+    },
+  });
+  return transactions
+};
+
+queryCreateTransaction = async (currency, currencyType, amount, concept, type, accountId) => {
   try {
-    const newTransaction = await Transaction.create({ amount, concept, type, accountId });
+    const newTransaction = await Transaction.create({ currency, currencyType, amount, concept, type, accountId });
     return newTransaction;
   } catch (err) {
     return err;
@@ -24,4 +33,4 @@ const getTransactions = async (typeTransaction, accountId) => {
   }
 };
 
-module.exports = { createTransaction, getTransactions };
+module.exports = { queryGetAllTransactionsByAccount, queryCreateTransaction, getTransactions }
