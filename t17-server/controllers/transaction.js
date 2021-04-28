@@ -21,11 +21,11 @@ const createTransaction = (req, res, next) => {
     );
 };
 //Get transaction by type
-const getTransactions = (req, res, next) => {
+const getTransactionsByType = (req, res, next) => {
   const typeTransaction = req.params.type;
   const accountId = parseInt(req.params.accountId);
   transactionQuery
-      .getTransactions(typeTransaction, accountId)
+      .querygetTransactionsByType(typeTransaction, accountId)
       .then((result) => {
           res.status(consts.code_success).send(result);
       })
@@ -34,4 +34,4 @@ const getTransactions = (req, res, next) => {
       );
 }
 
-module.exports = { getTransactions, getAllTransactionsByAccount, createTransaction, getTransactions };
+module.exports = { getAllTransactionsByAccount, createTransaction, getTransactionsByType };

@@ -19,7 +19,7 @@ queryCreateTransaction = async (currency, currencyType, amount, concept, type, a
   }
 };
 //Get transaction by type
-const getTransactions = async (typeTransaction, accountId) => {
+const querygetTransactionsByType = async (typeTransaction, accountId) => {
   try {
     const transactions = await Transaction.findAll({
       where: {
@@ -33,4 +33,4 @@ const getTransactions = async (typeTransaction, accountId) => {
   }
 };
 
-module.exports = { queryGetAllTransactionsByAccount, queryCreateTransaction, getTransactions }
+module.exports = { queryGetAllTransactionsByAccount, queryCreateTransaction, querygetTransactionsByType }
