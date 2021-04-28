@@ -12,6 +12,7 @@ const transactionRouter = require('./routes/transaction')
 const authRouter = require('./routes/auth');
 const fixedTermDeposits = require('./routes/fixeTermDeposit')
 const balanceRouter = require('./routes/balance')
+const accountRouter = require('./routes/account')
 
 const app = express();
 app.use(cors());
@@ -32,6 +33,7 @@ app.use('/transaction', transactionRouter); //routePath de prueba
 app.use("/auth", authRouter);
 app.use("/fixedTermDeposits", fixedTermDeposits) //routePath de prueba
 app.use("/balance", balanceRouter) //routePath de prueba
+app.use("/account", accountRouter) //routePath de prueba
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

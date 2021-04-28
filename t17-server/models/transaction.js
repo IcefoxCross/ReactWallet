@@ -18,8 +18,6 @@ module.exports = (sequelize, DataTypes) => {
     }
     Transaction.init(
         {
-            currency: DataTypes.INTEGER,
-            currencyType: DataTypes.STRING,
             amount: DataTypes.INTEGER,
             concept: DataTypes.STRING,
             type: DataTypes.STRING,

@@ -14,6 +14,7 @@ const getArsBalance = (topUpTransactions, paymentTransactions) => {
 
   return arsBalance;
 }
+
 const getUsdBalance = (topUpTransactions, paymentTransactions) => {
   let topUpTransactionsTotal = 0;
   let paymentTransactionsTotal = 0;
