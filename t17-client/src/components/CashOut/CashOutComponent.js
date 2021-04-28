@@ -53,7 +53,7 @@ function CashOutComponent({ user }) {
       values.accountId = accountSelected;
       values.createdAt = new Date();
       values.updatedAt = new Date();
-      createTransaction(values) // To do: Disminuir la cuenta bancaria del user segun lo retirado.
+      createTransaction(values)
       resetForm({ values: '' })
       Swal.fire(
         '¡Exito!',
