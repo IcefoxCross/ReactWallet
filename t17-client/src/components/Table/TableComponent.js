@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     Table,
     TableBody,
@@ -15,14 +15,13 @@ import {
 import PaginationTable from './PaginationTable/PaginationTableComponent';
 import useStyles from './TableStyles'
 
-export default function TableComponent({data,title}) {
+export default function TableComponent({ data, title }) {
     const classes = useStyles();
-    const [dataList, setDataList] = useState(data)
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const emptyRows =
         rowsPerPage -
-        Math.min(rowsPerPage, dataList.length - page * rowsPerPage);
+        Math.min(rowsPerPage, data.length - page * rowsPerPage);
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -30,18 +29,19 @@ export default function TableComponent({data,title}) {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
-    function formatDate (dateString) {
-        const date = new Date(dateString)
-        const options = {weekday: "long", year: "numeric", month: "long", day: "numeric"}
-        return date.toLocaleDateString("es-AR",options)
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const options = {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        };
+        return date.toLocaleDateString("es-AR", options);
     }
-    /**
-     * Listado de Egreso e Ingresos
-     * ============================
-     * Crear vistas independientes para los listados de ingresos y egresos, utilizando el componente genérico de listado
-     */
+
     return (
-        <Container maxWidth="sm">
+        <Container>
             <TableContainer component={Paper}>
                 <Table
                     className={classes.table}
@@ -49,7 +49,7 @@ export default function TableComponent({data,title}) {
                 >
                     <TableHead>
                         <TableRow>
-                            <TableCell colSpan={3}>
+                            <TableCell colSpan={6}>
                                 <Typography
                                     variant="subtitle1"
                                     color="initial"
@@ -65,20 +65,20 @@ export default function TableComponent({data,title}) {
                             <TableCell align="center">Tipo</TableCell>
                             <TableCell align="center">Cuenta</TableCell>
                             <TableCell align="center">
-                                Fechas de Creación
+                                Fecha de Creación
                             </TableCell>
                             <TableCell align="center">
-                                Fechas de Actualización
+                                Fecha de Actualización
                             </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {(rowsPerPage > 0
-                            ? dataList.slice(
+                            ? data.slice(
                                   page * rowsPerPage,
                                   page * rowsPerPage + rowsPerPage
                               )
-                            : dataList
+                            : data
                         ).map((element, index) => (
                             <TableRow key={index}>
                                 <TableCell
@@ -116,14 +116,14 @@ export default function TableComponent({data,title}) {
                                     scope="row"
                                     align="center"
                                 >
-                                    {element.createdAt}
+                                    {formatDate(element.createdAt)}
                                 </TableCell>
                                 <TableCell
                                     component="th"
                                     scope="row"
                                     align="center"
                                 >
-                                    {element.updatedAt}
+                                    {formatDate(element.updatedAt)}
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -147,8 +147,8 @@ export default function TableComponent({data,title}) {
                                     25,
                                     { label: "All", value: -1 },
                                 ]}
-                                colSpan={3}
-                                count={dataList.length}
+                                colSpan={6}
+                                count={data.length}
                                 rowsPerPage={rowsPerPage}
                                 page={page}
                                 labelRowsPerPage="Lineas"
