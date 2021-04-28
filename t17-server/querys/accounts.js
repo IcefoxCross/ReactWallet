@@ -8,3 +8,12 @@ exports.createAccount = (userId, currencyType) => {
         userId
     });
 };
+
+exports.getAllAccountsByUser = async (id) => {
+    const accounts = await Account.findAll({
+        where: {
+            userId: id,
+        },
+    });
+    return accounts;
+};

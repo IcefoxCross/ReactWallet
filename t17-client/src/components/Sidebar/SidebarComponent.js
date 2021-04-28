@@ -40,13 +40,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const userOptions = [
-    {name: "Ingresos", component: AttachMoneyIcon, path: "/"},
-    {name: "Egresos", component: MoneyOffIcon, path: "/"},
-    {name: "Enviar Dinero", component: MonetizationOnIcon, path: "/"},
-    {name: "Plazos Fijos", component: AccountBalanceIcon, path: "/"},
-    {name: "Contactos", component: ContactsIcon, path: "/"},
-    {name: "Perfil", component: AccountBoxIcon, path: "/"},
-    {name: "Billeteras", component: AccountBalanceWalletIcon, path: "/"},
+    {name: "Ingresos", component: AttachMoneyIcon, path: "/construction"},
+    {name: "Egresos", component: MoneyOffIcon, path: "/construction"},
+    {name: "Enviar Dinero", component: MonetizationOnIcon, path: "/construction"},
+    {name: "Plazos Fijos", component: AccountBalanceIcon, path: "/construction"},
+    {name: "Contactos", component: ContactsIcon, path: "/construction"},
+    {name: "Perfil", component: AccountBoxIcon, path: "/construction"},
+    {name: "Billeteras", component: AccountBalanceWalletIcon, path: "/construction"},
 ];
 
 const SidebarComponent = (props) => {
