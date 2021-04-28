@@ -156,4 +156,7 @@ module.exports = {
 
   // Transactions
   SUCCESS_TRANSACTION_CREATE: "La transacción fue creada correctamente",
+
+  // Balances
+  ERROR_ACCOUNT_NOT_FOUND: "Cuenta no encontrada",
 };
