@@ -15,20 +15,26 @@ import {
 import PaginationTable from './PaginationTable/PaginationTableComponent';
 import useStyles from './TableStyles'
 
-export default function TableComponent({list}) {
+export default function TableComponent({data,title}) {
     const classes = useStyles();
-    const [dataList, setDataList] = useState(list)
+    const [dataList, setDataList] = useState(data)
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, dataList.length - page * rowsPerPage);
+    const emptyRows =
+        rowsPerPage -
+        Math.min(rowsPerPage, dataList.length - page * rowsPerPage);
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
-
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
+    function formatDate (dateString) {
+        const date = new Date(dateString)
+        const options = {weekday: "long", year: "numeric", month: "long", day: "numeric"}
+        return date.toLocaleDateString("es-AR",options)
+    }
     /**
      * Listado de Egreso e Ingresos
      * ============================
@@ -49,14 +55,20 @@ export default function TableComponent({list}) {
                                     color="initial"
                                     className={classes.tableTitle}
                                 >
-                                    Plazos Fijos
+                                    {title}
                                 </Typography>
                             </TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell align="center">Monto</TableCell>
+                            <TableCell align="center">Cantidad</TableCell>
+                            <TableCell align="center">Concepto</TableCell>
+                            <TableCell align="center">Tipo</TableCell>
+                            <TableCell align="center">Cuenta</TableCell>
                             <TableCell align="center">
-                                Fecha de cierre
+                                Fechas de Creación
+                            </TableCell>
+                            <TableCell align="center">
+                                Fechas de Actualización
                             </TableCell>
                         </TableRow>
                     </TableHead>
@@ -76,10 +88,42 @@ export default function TableComponent({list}) {
                                 >
                                     {element.amount}
                                 </TableCell>
-                                <TableCell align="center">
-                                    {element.closinng_date === null
+                                <TableCell
+                                    component="th"
+                                    scope="row"
+                                    align="center"
+                                >
+                                    {element.type === null
                                         ? "-"
-                                        : element.closinng_date}
+                                        : element.concept}
+                                </TableCell>
+                                <TableCell
+                                    component="th"
+                                    scope="row"
+                                    align="center"
+                                >
+                                    {element.type}
+                                </TableCell>
+                                <TableCell
+                                    component="th"
+                                    scope="row"
+                                    align="center"
+                                >
+                                    {element.accountId}
+                                </TableCell>
+                                <TableCell
+                                    component="th"
+                                    scope="row"
+                                    align="center"
+                                >
+                                    {element.createdAt}
+                                </TableCell>
+                                <TableCell
+                                    component="th"
+                                    scope="row"
+                                    align="center"
+                                >
+                                    {element.updatedAt}
                                 </TableCell>
                             </TableRow>
                         ))}
