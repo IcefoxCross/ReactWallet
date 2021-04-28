@@ -8,6 +8,8 @@ import {
     Container,
     Grid,
     Button,
+    Paper,
+    Box
 } from "@material-ui/core";
 import {
     MESSAGE_STRING_EMAIL,
@@ -22,8 +24,12 @@ import {
 } from "../../constants/constants";
 import NotRegisteredComponent from './NotRegisteredComponent';
 import { httpPost } from '../../services/httpServices';
+import updateUser from "../../store/user/action";
+import updateIsAuth from "../../store/isAuth/action";
+import { connect } from 'react-redux';
+import { SuccessAlertComponent, ErrorAlertComponent } from '../Alerts/AlertsComponent';
 
-export default function FormLoginComponent() {
+function FormLoginComponent(props) {
     const history = useHistory();
 
     const validationSchema = yup.object({
@@ -47,11 +53,12 @@ export default function FormLoginComponent() {
         httpPost(URL_LOGIN, values)
             .then(res => {
                 localStorage.setItem('token', res.data.token);
-                alert(MESSAGE_LOGIN_SUCCESS);
-                history.push("/home");
+                delete res.data.user.password;
+                props.updateIsAuth(true);
+                props.updateUser(res.data.user);
+                SuccessAlertComponent(MESSAGE_LOGIN_SUCCESS).then(() => history.push("/home"));
             }).catch(err => {
-                alert(MESSAGE_LOGIN_FAILED);
-                setSubmitting(false);
+                ErrorAlertComponent(MESSAGE_LOGIN_FAILED).then(() => setSubmitting(false));
             });
     };
 
@@ -63,71 +70,84 @@ export default function FormLoginComponent() {
 
     return (
         <Container maxWidth="sm">
-            <form onSubmit={formik.handleSubmit} >
-                <Grid container spacing={3} direction="column">
-                    <Grid item>
-                        <Typography variant="h5" color="initial" data-testid="signup-title">
-                            Ingreso
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        <TextField
-                            id="email"
-                            name="email"
-                            label="Correo"
-                            variant="outlined"
-                            fullWidth
-                            value={formik.values.email}
-                            onChange={formik.handleChange}
-                            error={
-                                formik.touched.email &&
-                                Boolean(formik.errors.email)
-                            }
-                            helperText={
-                                formik.touched.email && formik.errors.email
-                            }
-                            data-testid="input-email"
-                        />
-                    </Grid>
-                    <Grid item>
-                        <TextField
-                            id="password"
-                            name="password"
-                            label="Contraseña"
-                            type="password"
-                            variant="outlined"
-                            fullWidth
-                            value={formik.values.password}
-                            onChange={formik.handleChange}
-                            error={
-                                formik.touched.password &&
-                                Boolean(formik.errors.password)
-                            }
-                            helperText={
-                                formik.touched.password &&
-                                formik.errors.password
-                            }
-                            data-testid="input-password"
-                        />
-                    </Grid>
-                    <Grid item>
-                        <NotRegisteredComponent />
-                    </Grid>
-                    <Grid item >
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            type="submit"
-                            fullWidth
-                            size="large"
-                            data-testid="signup-button"
-                            disabled={submitting}
-                        >
-                            Ingresar
-                        </Button>
-                    </Grid>
-                </Grid>
-            </form>
+            <Paper>
+                <Box px={3}>
+                    <form onSubmit={formik.handleSubmit}>
+                        <Grid container spacing={3} direction="column">
+                            <Grid item>
+                                <Typography variant="h5" color="initial" data-testid="signup-title">
+                                    Ingreso
+                                </Typography>
+                            </Grid>
+                            <Grid item>
+                                <TextField
+                                    id="email"
+                                    name="email"
+                                    label="Correo"
+                                    variant="outlined"
+                                    fullWidth
+                                    value={formik.values.email}
+                                    onChange={formik.handleChange}
+                                    error={
+                                        formik.touched.email &&
+                                        Boolean(formik.errors.email)
+                                    }
+                                    helperText={
+                                        formik.touched.email && formik.errors.email
+                                    }
+                                    data-testid="input-email"
+                                />
+                            </Grid>
+                            <Grid item>
+                                <TextField
+                                    id="password"
+                                    name="password"
+                                    label="Contraseña"
+                                    type="password"
+                                    variant="outlined"
+                                    fullWidth
+                                    value={formik.values.password}
+                                    onChange={formik.handleChange}
+                                    error={
+                                        formik.touched.password &&
+                                        Boolean(formik.errors.password)
+                                    }
+                                    helperText={
+                                        formik.touched.password &&
+                                        formik.errors.password
+                                    }
+                                    data-testid="input-password"
+                                />
+                            </Grid>
+                            <Grid item>
+                                <NotRegisteredComponent />
+                            </Grid>
+                            <Grid item >
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    type="submit"
+                                    fullWidth
+                                    size="large"
+                                    data-testid="signup-button"
+                                    disabled={submitting}
+                                >
+                                    Ingresar
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </form>
+                </Box>
+            </Paper>
         </Container>
     )
 }
+
+function mapStateToProps(state) {
+    return {
+        user: state.user,
+        isAuth: state.isAuth,
+    }
+}
+
+export default connect(null, { updateUser, updateIsAuth })(FormLoginComponent);

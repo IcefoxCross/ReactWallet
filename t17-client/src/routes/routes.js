@@ -1,5 +1,5 @@
 import HomeScreen from "../screens/Home/HomeScreen";
-import FormSignUp from "../components/FormSignUp/FormSignUpComponent";
+import RegisterScreen from "../screens/register/RegisterScreen";
 import LoginScreen from '../screens/login/LoginScreen';
 import CashOutScreen from "../screens/CashOut/CashOutScreen";
 import FormTopupMoney from '../components/FormTopupMoney/FormTopupMoneyComponent'
@@ -8,7 +8,7 @@ import BalanceScreen from "../screens/Balance/BalanceScreen";
 
 const routes = [
   { path: "/", Component: HomeScreen },
-  { path: "/register", Component: FormSignUp },
+  { path: "/register", Component: RegisterScreen },
   { path: "/login", Component: LoginScreen},
   { path: "/cashout", Component: CashOutScreen },
   { path: "/topupMoney", Component: FormTopupMoney },
