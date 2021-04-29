@@ -63,7 +63,7 @@ export default function CurrencyBalance({ currency, currencyBalance }) {
               Cargar dinero
         </Button>
           </Link>
-          <Link to="/cashout" style={{ textDecoration: 'none' }}>
+          <Link to="/cashout" style={{ textDecoration: 'none' }} g>
             <Button size="small" color="primary">
               Retirar dinero
         </Button>
