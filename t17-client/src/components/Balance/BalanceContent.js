@@ -33,8 +33,8 @@ const BalanceContent = ({ arsBalance, usdBalance }) => {
           </Typography>
         </Grid>
         <GridList cols={2} className={classes.wallets} style={{ marginTop: '20px' }}>
-          <CurrencyBalance currency={'Pesos'} currencyBalance={arsBalance} />
-          <CurrencyBalance currency={'Dólares'} currencyBalance={usdBalance} />
+          <CurrencyBalance currency={'ARS'} currencyBalance={arsBalance} />
+          <CurrencyBalance currency={'USD'} currencyBalance={usdBalance} />
         </GridList>
       </Grid>
     </Container >
