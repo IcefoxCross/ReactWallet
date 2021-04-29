@@ -15,7 +15,7 @@ function ListCashOutComponent({ user }) {
     const [cashOutList, setCashOutList] = useState([]);
     useEffect(() => {
         setUserId(user.user.id);
-    }, []);
+    }, [userId]);
 
     useEffect(() => {
         setUserArsAccount(userId * 2 - 1);
@@ -28,13 +28,16 @@ function ListCashOutComponent({ user }) {
 
     useEffect(() => {
         const fetchAPI = async () => {
-            const dataCashOutList = await httpGetAll(
-                `transaction/payment/userId/${userId}`
-            );
-            setCashOutList(dataCashOutList.data);
+            if(userId!==0) {
+                const dataCashOutList = await httpGetAll(
+                    `transaction/payment/userId/${userId}`
+                );
+                console.log(`transaction/topup/userId/${userId}`)
+                setCashOutList(dataCashOutList.data);
+            }
         };
         fetchAPI();
-    }, []);
+    }, [userId]);
     return (
         <Container>
             <Grid

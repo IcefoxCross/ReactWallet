@@ -7,6 +7,7 @@ import HeaderButton from './HeaderButtonsComponent'
 import { connect } from "react-redux";
 
 function ListTopupMoneyComponent({user}) {
+    const classes = useStyles();
     const [userId, setUserId] = useState(0);
     const [userArsAccount, setUserArsAccount] = useState(0);
     const [userUsdAccount, setUserUsdAccount] = useState(0);
@@ -14,7 +15,7 @@ function ListTopupMoneyComponent({user}) {
     const [topupMoneyList, setTopupMoneyList] = useState([])
     useEffect(() => {
         setUserId(user.user.id);
-    }, []);
+    }, [userId]);
 
     useEffect(() => {
         setUserArsAccount(userId * 2 - 1);
@@ -27,14 +28,16 @@ function ListTopupMoneyComponent({user}) {
 
     useEffect(() => {
         const fetchAPI = async () => {
-            const dataTopupMoney = await httpGetAll(
-                `transaction/topup/userId/${userId}`
-            );
-            setTopupMoneyList(dataTopupMoney.data);
+            if(userId!==0) {
+                const dataTopupMoney = await httpGetAll(
+                    `transaction/topup/userId/${userId}`
+                );
+                console.log(`transaction/topup/userId/${userId}`)
+                setTopupMoneyList(dataTopupMoney.data);
+            }
         }
         fetchAPI();
-    }, []);
-    const classes = useStyles();
+    }, [userId]);
     return (
         <Container>
             <Grid
