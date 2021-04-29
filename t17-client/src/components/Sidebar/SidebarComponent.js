@@ -28,25 +28,25 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
     drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
+        width: drawerWidth,
+        flexShrink: 0,
     },
     drawerPaper: {
-      width: drawerWidth,
+        width: drawerWidth,
     },
     drawerContainer: {
-      overflow: 'auto',
+        overflow: 'auto',
     }
 }));
 
 const userOptions = [
-    {name: "Ingresos", component: AttachMoneyIcon, path: "/construction"},
-    {name: "Egresos", component: MoneyOffIcon, path: "/construction"},
-    {name: "Enviar Dinero", component: MonetizationOnIcon, path: "/construction"},
-    {name: "Plazos Fijos", component: AccountBalanceIcon, path: "/construction"},
-    {name: "Contactos", component: ContactsIcon, path: "/construction"},
-    {name: "Perfil", component: AccountBoxIcon, path: "/construction"},
-    {name: "Billeteras", component: AccountBalanceWalletIcon, path: "/construction"},
+    { name: "Ingresos", component: AttachMoneyIcon, path: "/construction" },
+    { name: "Egresos", component: MoneyOffIcon, path: "/construction" },
+    { name: "Enviar Dinero", component: MonetizationOnIcon, path: "/construction" },
+    { name: "Plazos Fijos", component: AccountBalanceIcon, path: "/construction" },
+    { name: "Contactos", component: ContactsIcon, path: "/construction" },
+    { name: "Perfil", component: AccountBoxIcon, path: "/construction" },
+    { name: "Billeteras", component: AccountBalanceWalletIcon, path: "/billeteras" },
 ];
 
 const SidebarComponent = (props) => {
@@ -65,8 +65,8 @@ const SidebarComponent = (props) => {
 
     return (
         <Drawer
-          className={classes.drawer} variant="permanent" anchor="left"
-          classes={{paper: classes.drawerPaper}}>
+            className={classes.drawer} variant="permanent" anchor="left"
+            classes={{ paper: classes.drawerPaper }}>
             <Toolbar />
             <div className={classes.drawerContainer}>
                 <List>
@@ -75,28 +75,28 @@ const SidebarComponent = (props) => {
                 {/* Si esta logeado, mostrar Divider y List */}
                 {props.isAuth.isAuth && (
                     <>
-                    <Divider />
-                    <List>
-                        {userOptions.map(option => (
-                            <SidebarItemComponent key={option.name}
-                                IconComponent={option.component} name={option.name} path={option.path} />
-                        ))}
-                    </List>
+                        <Divider />
+                        <List>
+                            {userOptions.map(option => (
+                                <SidebarItemComponent key={option.name}
+                                    IconComponent={option.component} name={option.name} path={option.path} />
+                            ))}
+                        </List>
                     </>
                 )}
                 <Divider />
                 <List>
-                {/* Si esta logeado, mostrar Logout, sino Login */}
-                {props.isAuth.isAuth ? (
-                    <>
-                        <ListItem button onClick={onLogout}>
-                            <ListItemIcon><MeetingRoomIcon /></ListItemIcon>
-                            <ListItemText primary={"Logout"} />
-                        </ListItem>
-                    </>
-                ) : (
-                    <SidebarItemComponent IconComponent={VpnKeyIcon} name="Login" path={"/login"} />
-                )}
+                    {/* Si esta logeado, mostrar Logout, sino Login */}
+                    {props.isAuth.isAuth ? (
+                        <>
+                            <ListItem button onClick={onLogout}>
+                                <ListItemIcon><MeetingRoomIcon /></ListItemIcon>
+                                <ListItemText primary={"Logout"} />
+                            </ListItem>
+                        </>
+                    ) : (
+                        <SidebarItemComponent IconComponent={VpnKeyIcon} name="Login" path={"/login"} />
+                    )}
                 </List>
             </div>
         </Drawer>
