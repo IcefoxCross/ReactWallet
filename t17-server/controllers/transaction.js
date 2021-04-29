@@ -1,5 +1,6 @@
 const transactionQuery = require("../querys/transaction");
 const consts = require("../constants/consts")
+const accountsQuery = require('../querys/accounts')
 
 const getAllTransactionsByAccount = async (req, res, next) => {
   const accountId = parseInt(req.params.id);
@@ -23,9 +24,15 @@ const createTransaction = (req, res, next) => {
 //Get transaction by type
 const getTransactionsByType = (req, res, next) => {
   const typeTransaction = req.params.type;
-  const accountId = parseInt(req.params.accountId);
-  transactionQuery
-      .querygetTransactionsByType(typeTransaction, accountId)
+  const userId = parseInt(req.params.userId);
+  accountsQuery
+      .getAccountsIdByUser(userId)
+      .then((accountsId) => {
+          return transactionQuery.querygetTransactionsByType(
+              typeTransaction,
+              accountsId
+          );
+      })
       .then((result) => {
           res.status(consts.code_success).send(result);
       })
