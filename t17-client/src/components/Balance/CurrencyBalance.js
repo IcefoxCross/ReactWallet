@@ -58,12 +58,12 @@ export default function CurrencyBalance({ currency, currencyBalance }) {
           </Grid>
         </CardContent>
         <CardActions style={{ justifyContent: 'center' }}>
-          <Link to="/topup">
+          <Link to="/topup" style={{ textDecoration: 'none' }}>
             <Button size="small" color="primary">
               Cargar dinero
         </Button>
           </Link>
-          <Link to="/cashout">
+          <Link to="/cashout" style={{ textDecoration: 'none' }}>
             <Button size="small" color="primary">
               Retirar dinero
         </Button>
