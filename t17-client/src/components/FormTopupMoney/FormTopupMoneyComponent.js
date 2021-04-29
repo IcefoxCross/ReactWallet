@@ -7,14 +7,16 @@ import {
     Container,
     Grid,
     Button,
+    MenuItem,
 } from "@material-ui/core";
 import { connect } from "react-redux";
-import { createTransaction } from '../CashOut/services/CashOutServices';
+// import { createTransaction } from '../CashOut/services/CashOutServices';
 import { SuccessAlertComponent } from '../Alerts/AlertsComponent';
 import {
     MESSAGE_LOGIN_SUCCESS,
 } from "../../constants/constants";
 import { useHistory } from 'react-router';
+import { httpPost } from '../../services/httpServices';
 
 const validationSchema = yup.object().shape({
     amount: yup
@@ -52,13 +54,22 @@ function FormTopupMoneyComponent({ user }) {
             concept: "",
             type: "topup",
             dateTime: "",
+            accountId: "",
         },
         validationSchema: validationSchema,
         onSubmit: (values, { resetForm }) => {
             values.type = "topup";
             values.accountId = accountSelected;
             updateDate();
-            createTransaction(values)
+            const dataPost = {
+                amount: values.amount,
+                concept: values.concept,
+                type: values.type,
+                accountId: values.accountId,
+                createAd: values.createdAt,
+                updatedAt: values.updatedAt,
+            };
+            httpPost("transaction",dataPost);
             resetForm({ values: "" })
             SuccessAlertComponent(MESSAGE_LOGIN_SUCCESS).then(() =>
                 history.push("/listTopupMoney")
@@ -73,7 +84,7 @@ function FormTopupMoneyComponent({ user }) {
                 <Grid container spacing={3} direction="column">
                     <Grid item>
                         <Typography variant="h5" color="initial">
-                            Depositar Dinero
+                            Ingresar Dinero
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -113,6 +124,20 @@ function FormTopupMoneyComponent({ user }) {
                         />
                     </Grid>
                     <Grid item>
+                        <TextField
+                            id="filled-select-currency"
+                            select
+                            label="Cuenta"
+                            value={accountSelected}
+                            onChange={(e) => setAccountSelected(e.target.value)}
+                            variant="outlined"
+                            fullWidth
+                        >
+                            <MenuItem value={userArsAccount}>Pesos</MenuItem>
+                            <MenuItem value={userUsdAccount}>Dolares</MenuItem>
+                        </TextField>
+                    </Grid>
+                    <Grid item>
                         <Button
                             variant="contained"
                             color="primary"
@@ -120,7 +145,7 @@ function FormTopupMoneyComponent({ user }) {
                             size="large"
                             fullWidth
                         >
-                            Aceptar
+                            Ingresar
                         </Button>
                     </Grid>
                 </Grid>

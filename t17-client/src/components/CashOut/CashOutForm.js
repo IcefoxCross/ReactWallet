@@ -7,10 +7,7 @@ import {
   Button,
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -74,18 +71,18 @@ const CashOutForm = ({ formik, accountSelected, userArsAccount, userUsdAccount, 
             />
           </Grid>
           <Grid item>
-            <FormControl className={classes.formControl}>
-              <InputLabel id="demo-simple-select-label">Cuenta</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={accountSelected}
-                onChange={(e) => setAccountSelected(e.target.value)}
-              >
-                <MenuItem value={userArsAccount}>Pesos</MenuItem>
-                <MenuItem value={userUsdAccount}>Dolares</MenuItem>
-              </Select>
-            </FormControl>
+            <TextField
+              id="filled-select-currency"
+              select
+              label="Cuenta"
+              value={accountSelected}
+              onChange={(e) => setAccountSelected(e.target.value)}
+              variant="outlined"
+              fullWidth
+            >
+              <MenuItem value={userArsAccount}>Pesos</MenuItem>
+              <MenuItem value={userUsdAccount}>Dolares</MenuItem>
+            </TextField>
           </Grid>
           <Grid item >
             <Button
