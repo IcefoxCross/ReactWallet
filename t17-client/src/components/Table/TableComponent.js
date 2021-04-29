@@ -60,16 +60,12 @@ export default function TableComponent({ data, title }) {
                             </TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell align="center">Cantidad</TableCell>
-                            <TableCell align="center">Concepto</TableCell>
-                            <TableCell align="center">Tipo</TableCell>
-                            <TableCell align="center">Cuenta</TableCell>
-                            <TableCell align="center">
-                                Fecha de Creación
-                            </TableCell>
-                            <TableCell align="center">
-                                Fecha de Actualización
-                            </TableCell>
+                            <TableCell align="center" className={classes.columnTitle}>Cantidad&nbsp;(Pesos)</TableCell>
+                            <TableCell align="center" className={classes.columnTitle}>Concepto</TableCell>
+                            <TableCell align="center" className={classes.columnTitle}>Tipo</TableCell>
+                            <TableCell align="center" className={classes.columnTitle}>Cuenta</TableCell>
+                            <TableCell align="center" className={classes.columnTitle}>Fecha de Creación</TableCell>
+                            <TableCell align="center" className={classes.columnTitle}>Fecha de Actualización</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

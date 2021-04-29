@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Container } from "@material-ui/core";
+import { Container, Grid, Button, Box } from "@material-ui/core";
 import useStyles from "./ListTopupMoneyStyles";
 import TableComponent from '../Table/TableComponent';
 import { httpGetAll } from "../../services/httpServices";
+import HeaderButton from './HeaderButtonsComponent'
 
 const accountId = 1;
 
@@ -18,7 +19,28 @@ export default function ListTopupMoneyComponent() {
     const classes = useStyles();
     return (
         <Container>
-            <TableComponent data={topupMoneyList} title="Ingresos"></TableComponent>
+            <Grid
+                container
+                spacing={2}
+                direction="column"
+                justify="center"
+                alignItems="center"
+                alignContent="stretch"
+                wrap="nowrap"
+            >
+                <Grid item container>
+                    <HeaderButton
+                        text="Añadir ingreso"
+                        sendTo="pathScreenTopupMoney"
+                    />
+                </Grid>
+                <Grid item container>
+                    <TableComponent
+                        data={topupMoneyList}
+                        title="Ingresos"
+                    ></TableComponent>
+                </Grid>
+            </Grid>
         </Container>
-    )
+    );
 }

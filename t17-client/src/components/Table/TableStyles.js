@@ -5,7 +5,8 @@ const useStyles = makeStyles({
         minWidth: 500,
     },
     tableTitle: {
-        fontWeight: "bold",
+        fontWeight: "bolder",
+        fontSize: 22
     },
     spacer: {
         flex: "none",
@@ -13,6 +14,9 @@ const useStyles = makeStyles({
     root: {
         justifyContent: "flexStart",
     },
+    columnTitle: {
+        fontWeight: "bold",
+    }
 });
 
 export default useStyles;
