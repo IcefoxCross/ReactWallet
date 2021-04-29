@@ -1,40 +1,33 @@
-import React, { useEffect, useState } from 'react'
-import {
-  Typography,
-  Container,
-  Grid,
-} from "@material-ui/core";
-import CurrencySwitch from './CurrencySwitch';
+import React, { useEffect, useState } from 'react';
+import { httpGetOne } from '../../services/httpServices';
+import BalanceContent from './BalanceContent';
+import { connect } from 'react-redux';
 
-const BalanceComponent = () => {
-  const [pesosAccountAmount, setPesosAccountAmount] = useState(0)
-  const [usdAccountAmount, setUsdAccountAmount] = useState(1)
-  const [currencySign, setCurrencySign] = useState('$');
-  const [usdChecked, setUsdChecked] = useState(false);
+const BalanceComponent = ({ user }) => {
+  const [userId, setUserId] = useState(0);
+  const [arsBalance, setArsBalance] = useState(0);
+  const [usdBalance, setUsdBalance] = useState(0);
 
   useEffect(() => {
-    setCurrencySign(usdChecked ? 'U$S' : '$')
-  }, [usdChecked])
+    setUserId(user.user.id);
+  }, []);
+
+  useEffect(() => {
+    httpGetOne('balance', userId).then(res => {
+      setArsBalance(res.data.arsBalance);
+      setUsdBalance(res.data.usdBalance);
+    })
+  }, [userId])
 
   return (
-    <Container maxWidth="sm">
-      <Grid container spacing={3} direction="column">
-        <Grid item>
-          <Typography variant="h5" color="initial" data-testid="cashout-title">
-            Balance cuenta {usdChecked ? 'DÓLARES' : 'PESOS'}
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant="h2" color="initial" data-testid="cashout-title">
-            {currencySign}{usdChecked ? usdAccountAmount : pesosAccountAmount}
-          </Typography>
-        </Grid>
-        <Grid item>
-          <CurrencySwitch setUsdChecked={setUsdChecked} />
-        </Grid>
-      </Grid>
-    </Container>
+    <BalanceContent arsBalance={arsBalance} usdBalance={usdBalance} />
   )
 }
 
-export default BalanceComponent
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+  }
+}
+
+export default connect(mapStateToProps)(BalanceComponent);

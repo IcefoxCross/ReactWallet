@@ -5,6 +5,7 @@ import CashOutScreen from "../screens/CashOut/CashOutScreen";
 import FormTopupMoney from '../components/FormTopupMoney/FormTopupMoneyComponent'
 import ListFixedTermDeposit from '../components/ListFixedTermDeposit/ListFixedTermDepositComponent'
 import ConstruccionScreen from '../screens/Construccion/ConstruccionScreen'
+import BalanceScreen from "../screens/Balance/BalanceScreen";
 
 export const default_routes = [
   { path: ["/", "/home"], Component: HomeScreen },
@@ -15,6 +16,7 @@ export const protected_routes = [
   { path: "/cashout", Component: CashOutScreen },
   { path: "/topupMoney", Component: FormTopupMoney },
   { path: "/listFixedTermDeposit", Component: ListFixedTermDeposit },
+  { path: "/billeteras", Component: BalanceScreen },
 ];
 
 export const auth_routes = [
