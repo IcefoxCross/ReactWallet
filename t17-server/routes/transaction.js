@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { getTransactions, createTransaction, getAllTransactionsByAccount } = require('../controllers/transaction');
+const { getTransactionsByType, createTransaction, getAllTransactionsByAccount } = require('../controllers/transaction');
 
-router.get('/', getTransactions);
+// Get transaction by type
+router.get('/:type/userId/:userId', getTransactionsByType);
+// Post transacction
 router.post('/', createTransaction);
 // Get all transactions by account
 router.get('/:id', getAllTransactionsByAccount);

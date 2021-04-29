@@ -1,11 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const { queryGetAllTransactionsByAccount, queryCreateTransaction } = require("../querys/transaction");
+const transactionQuery = require("../querys/transaction");
 const consts = require("../constants/consts")
-
-const getTransactions = (req, res, next) => {
-  res.status(200).send({ success: true });
-};
+const accountsQuery = require('../querys/accounts')
 
 const getAllTransactionsByAccount = async (req, res, next) => {
   const accountId = parseInt(req.params.id);
@@ -18,7 +13,7 @@ const getAllTransactionsByAccount = async (req, res, next) => {
 };
 
 const createTransaction = (req, res, next) => {
-  queryCreateTransaction(req.body.currency, req.body.currencyType, req.body.amount, req.body.concept, req.body.type, req.body.accountId)
+  queryCreateTransaction(req.body.amount, req.body.concept, req.body.type, req.body.accountId)
     .then((result) => {
       res.status(consts.code_success).send(consts.SUCCESS_TRANSACTION_CREATE);
     })
@@ -26,5 +21,25 @@ const createTransaction = (req, res, next) => {
       res.status(consts.code_failure).send({ message: err.message })
     );
 };
+//Get transaction by type
+const getTransactionsByType = async (req, res, next) => {
+    try {
+        const typeTransaction = req.params.type;
+        const userId = parseInt(req.params.userId);
+        const accountsId = await accountsQuery.getAccountsIdByUser(userId);
+        if(accountsId.length !== 0) {
+            const result = await transactionQuery.querygetTransactionsByType(
+                typeTransaction,
+                accountsId
+            );
+            res.status(consts.code_success).send(result);
+        }
+        else{
+          throw new Error("El usuario no tiene cuentas asociadas");
+        }
+    } catch (err) {
+        res.status(consts.code_failure).send({ message: err.message });
+    }
+}
 
-module.exports = { getTransactions, getAllTransactionsByAccount, createTransaction };
+module.exports = { getAllTransactionsByAccount, createTransaction, getTransactionsByType };

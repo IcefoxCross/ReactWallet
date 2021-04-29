@@ -2,9 +2,12 @@ import HomeScreen from "../screens/Home/HomeScreen";
 import RegisterScreen from "../screens/register/RegisterScreen";
 import LoginScreen from '../screens/login/LoginScreen';
 import CashOutScreen from "../screens/CashOut/CashOutScreen";
-import FormTopupMoney from '../components/FormTopupMoney/FormTopupMoneyComponent'
 import ListFixedTermDeposit from '../components/ListFixedTermDeposit/ListFixedTermDepositComponent'
+import ListTopupMoneyScreen from '../screens/TopupMoneyList/TopupMoneyListScreen'
+import CashOutListScreen from '../screens/CashOutList/CashOutListScreen'
 import ConstruccionScreen from '../screens/Construccion/ConstruccionScreen'
+import CashOutFormScreen from '../screens/CashOutForm/CashOutFormScreen'
+import TopupMoneyFormScreen from '../screens/TopupMoneyForm/TopupMoneyFormScreen'
 import BalanceScreen from "../screens/Balance/BalanceScreen";
 
 export const default_routes = [
@@ -14,8 +17,11 @@ export const default_routes = [
 
 export const protected_routes = [
   { path: "/cashout", Component: CashOutScreen },
-  { path: "/topupMoney", Component: FormTopupMoney },
   { path: "/listFixedTermDeposit", Component: ListFixedTermDeposit },
+  { path: "/listTopupMoney", Component: ListTopupMoneyScreen },
+  { path: "/listCashOut", Component: CashOutListScreen },
+  { path: "/createTopupMoney", Component: TopupMoneyFormScreen },
+  { path: "/createCashOut", Component: CashOutFormScreen },
   { path: "/billeteras", Component: BalanceScreen },
 ];
 

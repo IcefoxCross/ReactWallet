@@ -2,13 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('Accounts', [{
-      currency: 1,
-      currencyType: 'pesos',
-      userId: 1,
-      createdAt: new Date,
-      updatedAt: new Date,
-    }], {});
+    await queryInterface.bulkInsert('Accounts', [], {});
   },
 
   down: async (queryInterface, Sequelize) => {
