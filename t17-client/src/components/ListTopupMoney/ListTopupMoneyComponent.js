@@ -4,14 +4,32 @@ import useStyles from "./ListTopupMoneyStyles";
 import TableComponent from '../Table/TableComponent';
 import { httpGetAll } from "../../services/httpServices";
 import HeaderButton from './HeaderButtonsComponent'
+import { connect } from "react-redux";
 
-const accountId = 1;
-
-export default function ListTopupMoneyComponent() {
+function ListTopupMoneyComponent({user}) {
+    const [userId, setUserId] = useState(0);
+    const [userArsAccount, setUserArsAccount] = useState(0);
+    const [userUsdAccount, setUserUsdAccount] = useState(0);
+    const [accountSelected, setAccountSelected] = useState(userArsAccount);
     const [topupMoneyList, setTopupMoneyList] = useState([])
     useEffect(() => {
+        setUserId(user.user.id);
+    }, []);
+
+    useEffect(() => {
+        setUserArsAccount(userId * 2 - 1);
+        setUserUsdAccount(userId * 2);
+    }, [userId]);
+
+    useEffect(() => {
+        setAccountSelected(userArsAccount);
+    }, [userArsAccount]);
+
+    useEffect(() => {
         const fetchAPI = async () => {
-            const dataTopupMoney = await httpGetAll(`transaction/topup/account/${accountId}`)
+            const dataTopupMoney = await httpGetAll(
+                `transaction/topup/userId/${userId}`
+            );
             setTopupMoneyList(dataTopupMoney.data);
         }
         fetchAPI();
@@ -44,3 +62,11 @@ export default function ListTopupMoneyComponent() {
         </Container>
     );
 }
+
+function mapStateToProps(state) {
+    return {
+        user: state.user,
+    };
+}
+
+export default connect(mapStateToProps)(ListTopupMoneyComponent);
