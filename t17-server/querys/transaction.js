@@ -11,9 +11,9 @@ queryGetAllTransactionsByAccount = async (id) => {
   return transactions
 };
 
-queryCreateTransaction = async (currency, currencyType, amount, concept, type, accountId) => {
+queryCreateTransaction = async (amount, concept, type, accountId) => {
   try {
-    const newTransaction = await Transaction.create({ currency, currencyType, amount, concept, type, accountId });
+    const newTransaction = await Transaction.create({amount, concept, type, accountId });
     return newTransaction;
   } catch (err) {
     return err;
