@@ -2,64 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('Transactions', [{
-      amount: 150,
-      concept: 'transaction',
-      type: 'topup',
-      accountId: 1,
-      createdAt: new Date,
-      updatedAt: new Date,
-    },{
-      amount: 150,
-      concept: 'transaction',
-      type: 'topup',
-      accountId: 1,
-      createdAt: new Date,
-      updatedAt: new Date,
-    },{
-      amount: 5550,
-      concept: 'transaction',
-      type: 'topup',
-      accountId: 2,
-      createdAt: new Date,
-      updatedAt: new Date,
-    },{
-      amount: 3150,
-      concept: 'transaction',
-      type: 'topup',
-      accountId: 1,
-      createdAt: new Date,
-      updatedAt: new Date,
-    },{
-      amount: 1500,
-      concept: 'transaction',
-      type: 'payment',
-      accountId: 2,
-      createdAt: new Date,
-      updatedAt: new Date,
-    },{
-      amount: 500,
-      concept: 'transaction',
-      type: 'payment',
-      accountId: 2,
-      createdAt: new Date,
-      updatedAt: new Date,
-    },{
-      amount: 500,
-      concept: 'transaction',
-      type: 'payment',
-      accountId: 3,
-      createdAt: new Date,
-      updatedAt: new Date,
-    },
-    {
-      amount: 500,
-      concept: 'topup',
-      type: 'payment',
-      accountId: 4,
-      createdAt: new Date,
-      updatedAt: new Date,
-    }], {});
+    await queryInterface.bulkInsert('Transactions', [], {});
   },
 
   down: async (queryInterface, Sequelize) => {
