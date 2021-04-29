@@ -62,10 +62,8 @@ export default function TableComponent({ data, title }) {
                         <TableRow>
                             <TableCell align="center" className={classes.columnTitle}>Cantidad&nbsp;(Pesos)</TableCell>
                             <TableCell align="center" className={classes.columnTitle}>Concepto</TableCell>
-                            <TableCell align="center" className={classes.columnTitle}>Tipo</TableCell>
                             <TableCell align="center" className={classes.columnTitle}>Cuenta</TableCell>
                             <TableCell align="center" className={classes.columnTitle}>Fecha de Creación</TableCell>
-                            <TableCell align="center" className={classes.columnTitle}>Fecha de Actualización</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -98,13 +96,6 @@ export default function TableComponent({ data, title }) {
                                     scope="row"
                                     align="center"
                                 >
-                                    {element.type}
-                                </TableCell>
-                                <TableCell
-                                    component="th"
-                                    scope="row"
-                                    align="center"
-                                >
                                     {element.accountId}
                                 </TableCell>
                                 <TableCell
@@ -113,13 +104,6 @@ export default function TableComponent({ data, title }) {
                                     align="center"
                                 >
                                     {formatDate(element.createdAt)}
-                                </TableCell>
-                                <TableCell
-                                    component="th"
-                                    scope="row"
-                                    align="center"
-                                >
-                                    {formatDate(element.updatedAt)}
                                 </TableCell>
                             </TableRow>
                         ))}
