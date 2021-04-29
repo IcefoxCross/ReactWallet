@@ -44,7 +44,22 @@ module.exports = {
       accountId: 2,
       createdAt: new Date,
       updatedAt: new Date,
-    },], {});
+    },{
+      amount: 500,
+      concept: 'transaction',
+      type: 'payment',
+      accountId: 3,
+      createdAt: new Date,
+      updatedAt: new Date,
+    },
+    {
+      amount: 500,
+      concept: 'topup',
+      type: 'payment',
+      accountId: 4,
+      createdAt: new Date,
+      updatedAt: new Date,
+    }], {});
   },
 
   down: async (queryInterface, Sequelize) => {
