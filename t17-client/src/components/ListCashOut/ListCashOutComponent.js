@@ -32,7 +32,6 @@ function ListCashOutComponent({ user }) {
                 const dataCashOutList = await httpGetAll(
                     `transaction/payment/userId/${userId}`
                 );
-                console.log(`transaction/topup/userId/${userId}`)
                 setCashOutList(dataCashOutList.data);
             }
         };

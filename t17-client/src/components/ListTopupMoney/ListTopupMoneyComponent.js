@@ -32,7 +32,6 @@ function ListTopupMoneyComponent({user}) {
                 const dataTopupMoney = await httpGetAll(
                     `transaction/topup/userId/${userId}`
                 );
-                console.log(`transaction/topup/userId/${userId}`)
                 setTopupMoneyList(dataTopupMoney.data);
             }
         }
