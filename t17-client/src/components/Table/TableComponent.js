@@ -60,7 +60,7 @@ export default function TableComponent({ data, title }) {
                             </TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell align="center" className={classes.columnTitle}>Cantidad&nbsp;(Pesos)</TableCell>
+                            <TableCell align="center" className={classes.columnTitle}>Cantidad</TableCell>
                             <TableCell align="center" className={classes.columnTitle}>Concepto</TableCell>
                             <TableCell align="center" className={classes.columnTitle}>Cuenta</TableCell>
                             <TableCell align="center" className={classes.columnTitle}>Fecha de Creación</TableCell>
