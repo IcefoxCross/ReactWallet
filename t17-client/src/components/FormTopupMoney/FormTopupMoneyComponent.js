@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useFormik } from "formik";
 import * as yup  from 'yup'
 import {
@@ -8,6 +8,13 @@ import {
     Grid,
     Button,
 } from "@material-ui/core";
+import { connect } from "react-redux";
+import { createTransaction } from '../CashOut/services/CashOutServices';
+import { SuccessAlertComponent } from '../Alerts/AlertsComponent';
+import {
+    MESSAGE_LOGIN_SUCCESS,
+} from "../../constants/constants";
+import { useHistory } from 'react-router';
 
 const validationSchema = yup.object().shape({
     amount: yup
@@ -20,7 +27,25 @@ const validationSchema = yup.object().shape({
         .required("Es necesario que ingrese un concepto"),
 });
 
-export default function FormTopupMoneyComponent() {
+function FormTopupMoneyComponent({ user }) {
+    const [userId, setUserId] = useState(0);
+    const [userArsAccount, setUserArsAccount] = useState(0);
+    const [userUsdAccount, setUserUsdAccount] = useState(0);
+    const [accountSelected, setAccountSelected] = useState(userArsAccount);
+    const history = useHistory()
+    useEffect(() => {
+        setUserId(user.user.id);
+    }, []);
+
+    useEffect(() => {
+        setUserArsAccount(userId * 2 - 1);
+        setUserUsdAccount(userId * 2);
+    }, [userId]);
+
+    useEffect(() => {
+        setAccountSelected(userArsAccount);
+    }, [userArsAccount]);
+
     const formik = useFormik({
         initialValues: {
             amount: "",
@@ -29,9 +54,15 @@ export default function FormTopupMoneyComponent() {
             dateTime: "",
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
+        onSubmit: (values, { resetForm }) => {
+            values.type = "topup";
+            values.accountId = accountSelected;
             updateDate();
-            alert(JSON.stringify(values, null, 2));
+            createTransaction(values)
+            resetForm({ values: "" })
+            SuccessAlertComponent(MESSAGE_LOGIN_SUCCESS).then(() =>
+                history.push("/listTopupMoney")
+            );
         },
     });
     const updateDate = () => (formik.values.dateTime = new Date());
@@ -97,3 +128,11 @@ export default function FormTopupMoneyComponent() {
         </Container>
     );
 }
+
+function mapStateToProps(state) {
+    return {
+        user: state.user,
+    };
+}
+
+export default connect(mapStateToProps)(FormTopupMoneyComponent);

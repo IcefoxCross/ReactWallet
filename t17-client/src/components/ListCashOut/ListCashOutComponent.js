@@ -31,7 +31,7 @@ export default function ListCashOutComponent() {
                 <Grid item container>
                     <HeaderButtonsComponent
                         text="Añadir Egreso"
-                        sendTo="pathScreenCashOut"
+                        sendTo="/createCashOut"
                     />
                 </Grid>
                 <Grid item container>

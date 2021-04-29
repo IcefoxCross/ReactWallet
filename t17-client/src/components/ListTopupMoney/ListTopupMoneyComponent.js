@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Grid, Button, Box } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 import useStyles from "./ListTopupMoneyStyles";
 import TableComponent from '../Table/TableComponent';
 import { httpGetAll } from "../../services/httpServices";
@@ -31,7 +31,7 @@ export default function ListTopupMoneyComponent() {
                 <Grid item container>
                     <HeaderButton
                         text="Añadir ingreso"
-                        sendTo="pathScreenTopupMoney"
+                        sendTo="/createTopupMoney"
                     />
                 </Grid>
                 <Grid item container>
