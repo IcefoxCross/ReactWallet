@@ -5,7 +5,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Grid, Link } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -57,12 +58,12 @@ export default function CurrencyBalance({ currency, currencyBalance }) {
           </Grid>
         </CardContent>
         <CardActions style={{ justifyContent: 'center' }}>
-          <Link href="/topup">
+          <Link to="/topup">
             <Button size="small" color="primary">
               Cargar dinero
         </Button>
           </Link>
-          <Link href="/cashout">
+          <Link to="/cashout">
             <Button size="small" color="primary">
               Retirar dinero
         </Button>
