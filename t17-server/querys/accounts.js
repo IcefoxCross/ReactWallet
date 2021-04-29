@@ -17,3 +17,14 @@ exports.getAllAccountsByUser = async (id) => {
     });
     return accounts;
 };
+
+exports.getAccountsIdByUser = async (id) => {
+    let accountsId = await Account.findAll({
+        attributes: ['id'],
+        where: {
+            userId: id,
+        },
+    });
+    accountsId = accountsId.map((element) => element.id);
+    return accountsId;
+};

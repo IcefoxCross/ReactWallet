@@ -8,16 +8,20 @@ import {
   MESSAGE_NEGATIVE_NUMBER,
   MESSAGE_STRING_CONCEPT,
   MESSAGE_REQUIRED_CONCEPT,
+  MESSAGE_LOGIN_SUCCESS,
 } from "../../constants/constants";
-import { createTransaction } from "./services/CashOutServices";
-import Swal from 'sweetalert2'
+// import { createTransaction } from "./services/CashOutServices";
 import CashOutForm from "./CashOutForm";
+import { SuccessAlertComponent } from "../Alerts/AlertsComponent";
+import { useHistory } from "react-router";
+import { httpPost } from "../../services/httpServices";
 
 function CashOutComponent({ user }) {
   const [userId, setUserId] = useState(0);
   const [userArsAccount, setUserArsAccount] = useState(0);
   const [userUsdAccount, setUserUsdAccount] = useState(0);
   const [accountSelected, setAccountSelected] = useState(userArsAccount);
+  const history = useHistory()
 
   useEffect(() => {
     setUserId(user.user.id);
@@ -53,13 +57,19 @@ function CashOutComponent({ user }) {
       values.accountId = accountSelected;
       values.createdAt = new Date();
       values.updatedAt = new Date();
-      createTransaction(values)
+      const dataPost = {
+          amount: values.amount,
+          concept: values.concept,
+          type: values.type,
+          accountId: values.accountId,
+          createAd: values.createdAt,
+          updatedAt: values.updatedAt,
+      };
+      httpPost("transaction",dataPost);
       resetForm({ values: '' })
-      Swal.fire(
-        '¡Exito!',
-        'Transacción realizada.',
-        'success'
-      )
+      SuccessAlertComponent(MESSAGE_LOGIN_SUCCESS).then(() =>
+          history.push("/listCashOut")
+      );
     },
   });
 

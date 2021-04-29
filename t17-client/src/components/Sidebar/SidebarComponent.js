@@ -40,8 +40,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const userOptions = [
-    { name: "Ingresos", component: AttachMoneyIcon, path: "/construction" },
-    { name: "Egresos", component: MoneyOffIcon, path: "/construction" },
+    { name: "Ingresos", component: AttachMoneyIcon, path: "/listTopupMoney" },
+    { name: "Egresos", component: MoneyOffIcon, path: "/listCashOut" },
     { name: "Enviar Dinero", component: MonetizationOnIcon, path: "/construction" },
     { name: "Plazos Fijos", component: AccountBalanceIcon, path: "/construction" },
     { name: "Contactos", component: ContactsIcon, path: "/construction" },

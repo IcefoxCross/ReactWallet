@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useFormik } from "formik";
 import * as yup  from 'yup'
 import {
@@ -7,7 +7,16 @@ import {
     Container,
     Grid,
     Button,
+    MenuItem,
 } from "@material-ui/core";
+import { connect } from "react-redux";
+// import { createTransaction } from '../CashOut/services/CashOutServices';
+import { SuccessAlertComponent } from '../Alerts/AlertsComponent';
+import {
+    MESSAGE_LOGIN_SUCCESS,
+} from "../../constants/constants";
+import { useHistory } from 'react-router';
+import { httpPost } from '../../services/httpServices';
 
 const validationSchema = yup.object().shape({
     amount: yup
@@ -20,18 +29,51 @@ const validationSchema = yup.object().shape({
         .required("Es necesario que ingrese un concepto"),
 });
 
-export default function FormTopupMoneyComponent() {
+function FormTopupMoneyComponent({ user }) {
+    const [userId, setUserId] = useState(0);
+    const [userArsAccount, setUserArsAccount] = useState(0);
+    const [userUsdAccount, setUserUsdAccount] = useState(0);
+    const [accountSelected, setAccountSelected] = useState(userArsAccount);
+    const history = useHistory()
+    useEffect(() => {
+        setUserId(user.user.id);
+    }, []);
+
+    useEffect(() => {
+        setUserArsAccount(userId * 2 - 1);
+        setUserUsdAccount(userId * 2);
+    }, [userId]);
+
+    useEffect(() => {
+        setAccountSelected(userArsAccount);
+    }, [userArsAccount]);
+
     const formik = useFormik({
         initialValues: {
             amount: "",
             concept: "",
             type: "topup",
             dateTime: "",
+            accountId: "",
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
+        onSubmit: (values, { resetForm }) => {
+            values.type = "topup";
+            values.accountId = accountSelected;
             updateDate();
-            alert(JSON.stringify(values, null, 2));
+            const dataPost = {
+                amount: values.amount,
+                concept: values.concept,
+                type: values.type,
+                accountId: values.accountId,
+                createAd: values.createdAt,
+                updatedAt: values.updatedAt,
+            };
+            httpPost("transaction",dataPost);
+            resetForm({ values: "" })
+            SuccessAlertComponent(MESSAGE_LOGIN_SUCCESS).then(() =>
+                history.push("/listTopupMoney")
+            );
         },
     });
     const updateDate = () => (formik.values.dateTime = new Date());
@@ -42,7 +84,7 @@ export default function FormTopupMoneyComponent() {
                 <Grid container spacing={3} direction="column">
                     <Grid item>
                         <Typography variant="h5" color="initial">
-                            Depositar Dinero
+                            Ingresar Dinero
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -82,6 +124,20 @@ export default function FormTopupMoneyComponent() {
                         />
                     </Grid>
                     <Grid item>
+                        <TextField
+                            id="filled-select-currency"
+                            select
+                            label="Cuenta"
+                            value={accountSelected}
+                            onChange={(e) => setAccountSelected(e.target.value)}
+                            variant="outlined"
+                            fullWidth
+                        >
+                            <MenuItem value={userArsAccount}>Pesos</MenuItem>
+                            <MenuItem value={userUsdAccount}>Dolares</MenuItem>
+                        </TextField>
+                    </Grid>
+                    <Grid item>
                         <Button
                             variant="contained"
                             color="primary"
@@ -89,7 +145,7 @@ export default function FormTopupMoneyComponent() {
                             size="large"
                             fullWidth
                         >
-                            Aceptar
+                            Ingresar
                         </Button>
                     </Grid>
                 </Grid>
@@ -97,3 +153,11 @@ export default function FormTopupMoneyComponent() {
         </Container>
     );
 }
+
+function mapStateToProps(state) {
+    return {
+        user: state.user,
+    };
+}
+
+export default connect(mapStateToProps)(FormTopupMoneyComponent);
