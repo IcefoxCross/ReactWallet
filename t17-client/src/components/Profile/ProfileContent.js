@@ -3,27 +3,10 @@ import {
   Typography,
   Container,
   Grid,
-  GridList,
-  Box,
 } from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
 import UserProfile from './UserProfile';
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  wallets: {
-    marginTop: '30px',
-  }
-}));
-
-const ProfileContent = ({ arsBalance, usdBalance }) => {
-  const classes = useStyles();
+const ProfileContent = ({ userInfo }) => {
   return (
     <Container maxWidth="sm">
       <Grid container spacing={3} direction="column">
@@ -35,7 +18,7 @@ const ProfileContent = ({ arsBalance, usdBalance }) => {
         <Grid
           alignItems="center"
           justify="center">
-          <UserProfile currency={'ARS'} currencyBalance={arsBalance} />
+          <UserProfile userInfo={userInfo} />
         </Grid>
       </Grid>
     </Container >

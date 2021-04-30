@@ -23,7 +23,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function UserProfile() {
+export default function UserProfile({ userInfo }) {
   const classes = useStyles();
 
   return (
@@ -33,14 +33,14 @@ export default function UserProfile() {
         <Card className={classes.root}>
           <CardContent>
             <Typography className={classes.title} color="textSecondary" gutterBottom>
-              ID 7
-        </Typography>
+              ID {userInfo.id}
+            </Typography>
             <Typography variant="h5" component="h2">
-              Valentín Torres
-        </Typography>
+              {userInfo.firstName} {userInfo.lastName}
+            </Typography>
             <Typography className={classes.pos} color="textSecondary">
-              valen@gmail.com
-        </Typography>
+              {userInfo.email}
+            </Typography>
           </CardContent>
           <CardActions style={{ justifyContent: 'center' }}>
             <Button size="small">
