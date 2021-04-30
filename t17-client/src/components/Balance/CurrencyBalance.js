@@ -1,75 +1,69 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Grid } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    minWidth: 275,
   },
-  cardContent: {
-    marginTop: '20px',
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
   },
-  positiveNumber: {
-    color: 'lime',
+  title: {
+    fontSize: 14,
   },
-  negativeNumber: {
+  pos: {
+    marginBottom: 12,
+  },
+  sameRowText: {
+    display: 'inline-block',
+  },
+  negativeBalance: {
     color: 'red',
   },
-  currencyCard: {
-    marginTop: '30px',
-    fontSize: '22px',
+  positiveBalance: {
+    color: 'lime',
+  },
+  currencyColumn: {
+    marginLeft: '10px',
+  },
+  marginCard: {
+    marginBottom: '20px',
   },
 });
 
-export default function CurrencyBalance({ currency, currencyBalance }) {
+export default function CurrencyBalance({ currency, currencyBalance, accountId }) {
   const classes = useStyles();
 
   return (
-    <Grid container item xs={12} sm={6}>
-      <Card className={classes.root}>
-        <CardContent className={classes.cardContent}>
-          <Grid container direction="row">
-            <Grid item xs={12} sm={1} />
-            <Grid item xs={12} sm={3} >
-              <Typography className={currencyBalance >= 0 ? classes.positiveNumber : classes.negativeNumber}
-                variant="h2">
-                $
+    <Grid container className={classes.marginCard}>
+      <Grid item xs={2} />
+      <Grid item xs={8}>
+        <Card>
+          <CardContent>
+            <Typography className={classes.title} color="textSecondary" gutterBottom>
+              Cuenta {currency === 'ARS' ? 'PESOS' : ''} {currency === 'USD' ? 'DÓLARES' : ''}
             </Typography>
-            </Grid>
-            <Grid item xs={12} sm={3}>
-              <Typography
-                className={currencyBalance >= 0 ? classes.positiveNumber : classes.negativeNumber}
-                variant="h2">
-                {currencyBalance}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={3}>
-              <Typography color="textSecondary" className={classes.currencyCard}>
-                {currency}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={1} />
-          </Grid>
-        </CardContent>
-        <CardActions style={{ justifyContent: 'center' }}>
-          <Link to="/topup" style={{ textDecoration: 'none' }}>
-            <Button size="small" color="primary">
-              Cargar dinero
-        </Button>
-          </Link>
-          <Link to="/cashout" style={{ textDecoration: 'none' }}>
-            <Button size="small" color="primary">
-              Retirar dinero
-        </Button>
-          </Link>
-        </CardActions>
-      </Card>
+            <Typography variant="h3" component="h2" className=
+              {`${classes.sameRowText} ${currencyBalance >= 0 ? classes.positiveBalance : classes.negativeBalance}`}>
+              $
+          </Typography>
+            <Typography variant="h3" component="h2" className=
+              {`${classes.sameRowText} ${currencyBalance >= 0 ? classes.positiveBalance : classes.negativeBalance}`}>
+              {currencyBalance}
+            </Typography>
+            <Typography color="textSecondary" className={`${classes.sameRowText} ${classes.currencyColumn}`}>
+              {currency}
+            </Typography>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item xs={2} />
     </Grid>
   );
 }
