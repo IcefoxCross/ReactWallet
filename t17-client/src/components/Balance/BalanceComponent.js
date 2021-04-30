@@ -4,18 +4,20 @@ import BalanceContent from './BalanceContent';
 import { connect } from 'react-redux';
 
 const BalanceComponent = ({ user }) => {
-  const [userId, setUserId] = useState(0);
-  const [arsBalance, setArsBalance] = useState(0);
-  const [usdBalance, setUsdBalance] = useState(0);
+  const [userId, setUserId] = useState();
+  const [arsBalance, setArsBalance] = useState();
+  const [usdBalance, setUsdBalance] = useState();
 
   useEffect(() => {
     setUserId(user.user.id);
   }, []);
 
   useEffect(() => {
-    httpGetOne('balance', userId).then(res => {
-      setArsBalance(res.data.arsBalance);
-      setUsdBalance(res.data.usdBalance);
+    httpGetOne('balance', userId).then(async (res) => {
+      const fetchArsBalance = await res.data.arsBalance;
+      const fetchUsdBalance = await res.data.usdBalance;
+      setArsBalance(fetchArsBalance);
+      setUsdBalance(fetchUsdBalance);
     })
   }, [userId])
 

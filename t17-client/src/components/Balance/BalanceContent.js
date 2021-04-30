@@ -32,10 +32,12 @@ const BalanceContent = ({ arsBalance, usdBalance }) => {
             Billeteras
           </Typography>
         </Grid>
-        <GridList cols={2} className={classes.wallets} style={{ marginTop: '20px' }}>
+        <Grid
+          alignItems="center"
+          justify="center">
           <CurrencyBalance currency={'ARS'} currencyBalance={arsBalance} />
           <CurrencyBalance currency={'USD'} currencyBalance={usdBalance} />
-        </GridList>
+        </Grid>
       </Grid>
     </Container >
   )
