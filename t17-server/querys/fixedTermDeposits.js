@@ -10,4 +10,13 @@ queryGetAllFixedTermDepositsByUser = async (id) => {
     return fixedTermDeposits
 };
 
-module.exports = { queryGetAllFixedTermDepositsByUser };
+queryCreateFixedTermDeposit = async (amount, closingData, userId) => {
+    try {
+        const newFixedTermDeposit = await FixedTermDeposit.create({ amount, closingData, userId });
+        return newFixedTermDeposit;
+    } catch (err) {
+        return err;
+    }
+};
+
+module.exports = { queryGetAllFixedTermDepositsByUser, queryCreateFixedTermDeposit };

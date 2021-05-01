@@ -87,9 +87,9 @@ export default function ListFixedTermDepositComponent() {
                     <TableBody>
                         {(rowsPerPage > 0
                             ? fixedTerms.slice(
-                                  page * rowsPerPage,
-                                  page * rowsPerPage + rowsPerPage
-                              )
+                                page * rowsPerPage,
+                                page * rowsPerPage + rowsPerPage
+                            )
                             : fixedTerms
                         ).map((element, index) => (
                             <TableRow key={index}>

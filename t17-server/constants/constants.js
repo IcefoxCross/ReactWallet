@@ -17,3 +17,6 @@ exports.REQ_FORBIDDEN = 403;
 
 // MESSAGES
 exports.MSG_DUPLICATE_EMAIL = "Email is already in use.";
+
+// FIXED TERM DEPOSIT
+exports.SUCCESS_FTD_CREATE = "Succesfully created Fixed Term Deposit"

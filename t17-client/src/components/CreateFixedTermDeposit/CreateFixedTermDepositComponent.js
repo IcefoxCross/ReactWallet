@@ -1,86 +1,112 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { connect } from "react-redux";
 import {
-  Typography,
-  TextField,
-  Container,
-  Grid,
-  Button,
-} from "@material-ui/core";
-import {
-  MESSAGE_REQUIRED_FTD_AMMOUNT,
+  MESSAGE_REQUIRED_CASHOUT_AMMOUNT,
   MESSAGE_NOT_A_NUMBER,
   MESSAGE_NEGATIVE_NUMBER,
-  MESSAGE_MAXIMUM_VALUE,
+  MESSAGE_LOGIN_SUCCESS,
+  MESSAGE_NOT_ENOUGH_MONEY,
 } from "../../constants/constants";
-import CreateFixedTermDepositHooks from "./CreateFixedTermDepositHooks";
+import CreateFixedTermDepositForm from "./CreateFixedTermDepositForm";
+import { SuccessAlertComponent } from "../Alerts/AlertsComponent";
+import { useHistory } from "react-router";
+import { httpPost, httpGetOne } from "../../services/httpServices";
 
-export default function CreateFixedTermDepositComponent() {
+function CreateFixedTermDepositComponent({ user }) {
+  const [userId, setUserId] = useState(0);
+  const [userArsAccount, setUserArsAccount] = useState(0);
+  const [userUsdAccount, setUserUsdAccount] = useState(0);
+  const [userArsBalance, setUserArsBalance] = useState(0);
+  const [userUsdBalance, setUserUsdBalance] = useState(0);
+  const [balanceSelected, setBalanceSelected] = useState(userArsBalance);
+  const [accountSelected, setAccountSelected] = useState(userArsAccount);
+  const history = useHistory()
 
-  const userAccountAmount = CreateFixedTermDepositHooks().userAccountAmount;
+  useEffect(() => {
+    setUserId(user?.user?.id);
+  }, []);
+
+  useEffect(() => {
+    httpGetOne('account', userId).then(res => {
+      if (res.data[0]?.id && res.data[1]?.id)
+        setUserArsAccount(res.data[0]?.id);
+      setUserUsdAccount(res.data[1]?.id);
+    })
+  }, [userId]);
+
+  useEffect(() => {
+    if (userArsAccount)
+      setAccountSelected(userArsAccount)
+  }, [userArsAccount]);
+
+  useEffect(() => {
+    setBalanceSelected(userArsBalance)
+  }, [userArsBalance])
+
+  useEffect(() => {
+    httpGetOne('balance', userId).then(res => {
+      setUserArsBalance(res.data.arsBalance);
+      setUserUsdBalance(res.data.usdBalance);
+    })
+  })
 
   const validationSchema = yup.object({
-    ftdAmount: yup
+    amount: yup
       .number().typeError(MESSAGE_NOT_A_NUMBER)
       .positive(MESSAGE_NEGATIVE_NUMBER)
-      .max(userAccountAmount, MESSAGE_MAXIMUM_VALUE)
-      .required(MESSAGE_REQUIRED_FTD_AMMOUNT),
+      .max(balanceSelected, MESSAGE_NOT_ENOUGH_MONEY)
+      .required(MESSAGE_REQUIRED_CASHOUT_AMMOUNT),
   });
+
+  const postFixedTermDeposit = (userId, accountId, amount, concept, type) => {
+    const data = {
+      userId: userId,
+      accountId: accountId,
+      amount: amount,
+      concept: concept,
+      type: type,
+      closingDate: null
+    }
+    httpPost("fixedTermDeposits", data)
+  }
 
   const formik = useFormik({
     initialValues: {
-      ftdAmount: "",
+      amount: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: (values, { resetForm }) => {
+      values.concept = "plazo fijo"
+      values.type = 'payment';
+      postFixedTermDeposit(userId, accountSelected, values.amount, values.concept, values.type)
+      resetForm({ values: '' })
+      SuccessAlertComponent(MESSAGE_LOGIN_SUCCESS).then(() =>
+        '' // history.push("/listCashOut")
+      );
     },
   });
 
   return (
-    <Container maxWidth="sm">
-      <form onSubmit={formik.handleSubmit} >
-        <Grid container spacing={3} direction="column">
-          <Grid item>
-            <Typography variant="h5" color="initial" data-testid="create-ftd-title">
-              Crear Plazo Fijo
-            </Typography>
-          </Grid>
-          <Grid item>
-            <TextField
-              id="ftdAmount"
-              name="ftdAmount"
-              label="Monto"
-              variant="outlined"
-              fullWidth
-              value={formik.values.ftdAmount}
-              onChange={formik.handleChange}
-              error={
-                formik.touched.ftdAmount &&
-                Boolean(formik.errors.ftdAmount)
-              }
-              helperText={
-                formik.touched.ftdAmount &&
-                formik.errors.ftdAmount
-              }
-              data-testid="input-amount"
-            />
-          </Grid>
-          <Grid item >
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              fullWidth
-              size="large"
-              data-testid="create-ftd-button"
-            >
-              Crear
-            </Button>
-          </Grid>
-        </Grid>
-      </form>
-    </Container>
+    <>
+      <CreateFixedTermDepositForm
+        formik={formik}
+        userArsAccount={userArsAccount}
+        userUsdAccount={userUsdAccount}
+        accountSelected={accountSelected}
+        userArsBalance={userArsBalance}
+        userUsdBalance={userUsdBalance}
+        setAccountSelected={setAccountSelected}
+        setBalanceSelected={setBalanceSelected} />
+    </>
   );
 }
+
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+  }
+}
+
+export default connect(mapStateToProps)(CreateFixedTermDepositComponent);
