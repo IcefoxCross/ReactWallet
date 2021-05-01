@@ -24,11 +24,11 @@ function CreateFixedTermDepositComponent({ user }) {
   const [accountSelected, setAccountSelected] = useState(userArsAccount);
   const history = useHistory()
 
-  useEffect(() => {
+  useEffect(() => { // Sets userId to redux user state Id.
     setUserId(user?.user?.id);
   }, []);
 
-  useEffect(() => {
+  useEffect(() => { // Gets user accounts id and sets its id's.
     httpGetOne('account', userId).then(res => {
       if (res.data[0]?.id && res.data[1]?.id)
         setUserArsAccount(res.data[0]?.id);
@@ -36,14 +36,10 @@ function CreateFixedTermDepositComponent({ user }) {
     })
   }, [userId]);
 
-  useEffect(() => {
+  useEffect(() => { // Sets default account selected to ARS account.
     if (userArsAccount)
       setAccountSelected(userArsAccount)
   }, [userArsAccount]);
-
-  useEffect(() => {
-    setBalanceSelected(userArsBalance)
-  }, [userArsBalance])
 
   useEffect(() => {
     httpGetOne('balance', userId).then(res => {
@@ -51,6 +47,10 @@ function CreateFixedTermDepositComponent({ user }) {
       setUserUsdBalance(res.data.usdBalance);
     })
   })
+
+  useEffect(() => { // Sets default account balance selected to ARS balance.
+    setBalanceSelected(userArsBalance)
+  }, [userArsBalance])
 
   const validationSchema = yup.object({
     amount: yup
@@ -83,7 +83,7 @@ function CreateFixedTermDepositComponent({ user }) {
       postFixedTermDeposit(userId, accountSelected, values.amount, values.concept, values.type)
       resetForm({ values: '' })
       SuccessAlertComponent(MESSAGE_LOGIN_SUCCESS).then(() =>
-        '' // history.push("/listCashOut")
+        history.push("/ftd")
       );
     },
   });
