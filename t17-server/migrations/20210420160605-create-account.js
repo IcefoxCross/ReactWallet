@@ -9,13 +9,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       currency: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
-      currenctType: {
-        type: Sequelize.STRING
+      currencyType: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
