@@ -9,8 +9,8 @@ const BalanceComponent = ({ user }) => {
   const [usdBalance, setUsdBalance] = useState();
 
   useEffect(() => {
-    setUserId(user.user.id);
-  }, []);
+    if (!userId) setUserId(user.user.id);
+  }, [userId]);
 
   useEffect(() => {
     httpGetOne('balance', userId).then(async (res) => {
