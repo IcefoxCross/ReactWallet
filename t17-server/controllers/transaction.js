@@ -4,7 +4,7 @@ const accountsQuery = require('../querys/accounts')
 
 const getAllTransactionsByAccount = async (req, res, next) => {
   const accountId = parseInt(req.params.id);
-  const transactionsByAccount = await queryGetAllTransactionsByAccount(accountId);
+  const transactionsByAccount = await transactionQuery.queryGetAllTransactionsByAccount(accountId);
   if (transactionsByAccount) {
     res.status(consts.code_success).send(transactionsByAccount);
   } else {
@@ -26,17 +26,14 @@ const getTransactionsByType = async (req, res, next) => {
     try {
         const typeTransaction = req.params.type;
         const userId = parseInt(req.params.userId);
-        const accountsId = await accountsQuery.getAccountsIdByUser(userId);
-        if(accountsId.length !== 0) {
-            const result = await transactionQuery.querygetTransactionsByType(
-                typeTransaction,
-                accountsId
-            );
-            res.status(consts.code_success).send(result);
+        const result = await transactionQuery.querygetTransactionsByType(
+            typeTransaction,
+            userId
+        );
+        if (result.length == 0) {
+            throw new Error("El usuario no tiene cuentas asociadas");
         }
-        else{
-          throw new Error("El usuario no tiene cuentas asociadas");
-        }
+        res.status(consts.code_success).send(result);
     } catch (err) {
         res.status(consts.code_failure).send({ message: err.message });
     }

@@ -1,6 +1,8 @@
 const db = require("../models");
 const Transaction = db.Transaction;
-const { Op } = require("sequelize");
+const User = db.User;
+const Account = db.Account;
+
 
 queryGetAllTransactionsByAccount = async (id) => {
   const transactions = await Transaction.findAll({
@@ -20,17 +22,33 @@ queryCreateTransaction = async (amount, concept, type, accountId) => {
   }
 };
 //Get transaction by type
-const querygetTransactionsByType = async (typeTransaction, accountsId) => {
+const querygetTransactionsByType = async (typeTransaction, userId) => {
   try {
-    const transactions = await Transaction.findAll({
-        where: {
-            accountId: { [Op.or]: accountsId, },
-            type: typeTransaction,
-        },
-    });
-    return transactions;
+      const transactions = await Transaction.findAll({
+          where: { type: typeTransaction },
+          required: true,
+          include: [
+              {
+                  model: Account,
+                  as: "account",
+                  attributes: ["currencyType"],
+                  required: true,
+                  include: [
+                      {
+                          model: User,
+                          as: "user",
+                          where: { id: userId },
+                          attributes: [],
+                          required: true,
+                      },
+                  ],
+              },
+          ],
+          order: [["createdAt", "DESC"]],
+      });
+      return transactions;
   } catch (err) {
-    return err;
+      return err;
   }
 };
 
