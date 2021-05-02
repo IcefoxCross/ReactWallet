@@ -39,3 +39,8 @@ export const INFO_BUTTON = "Entendido!";
 export const SUCCESS_TITLE = "Confirmado!";
 export const ERROR_TITLE = "Oops...";
 export const CONFIRM_TITLE = "¿Está seguro?";
+
+// Fixed Term Deposits
+
+export const MESSAGE_REQUIRED_FTD_AMMOUNT = "Es necesario que ingrese un monto";
+export const MESSAGE_NOT_ENOUGH_MONEY = "No tienes tanto dinero en tu cuenta";

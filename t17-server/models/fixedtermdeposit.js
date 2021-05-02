@@ -10,11 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      FixedTermDeposit.belongsTo(models.User, {as: 'user'});
+      FixedTermDeposit.belongsTo(models.User, { as: 'user' });
     }
   };
   FixedTermDeposit.init({
     amount: DataTypes.STRING,
+    currencyType: DataTypes.STRING,
     closingDate: DataTypes.DATE,
     userId: DataTypes.INTEGER
   }, {

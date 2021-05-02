@@ -9,6 +9,7 @@ import ConstruccionScreen from '../screens/Construccion/ConstruccionScreen'
 import CashOutFormScreen from '../screens/CashOutForm/CashOutFormScreen'
 import TopupMoneyFormScreen from '../screens/TopupMoneyForm/TopupMoneyFormScreen'
 import BalanceScreen from "../screens/Balance/BalanceScreen";
+import CreateFixedTermDepositScreen from "../screens/CreateFixedTermDeposit/CreateFixedTermDepositScreen";
 import ProfileScreen from "../screens/Profile/ProfileScreen";
 
 export const default_routes = [
@@ -18,7 +19,8 @@ export const default_routes = [
 
 export const protected_routes = [
   { path: "/cashout", Component: CashOutScreen },
-  { path: "/listFixedTermDeposit", Component: ListFixedTermDeposit },
+  { path: "/ftd", Component: ListFixedTermDeposit },
+  { path: "/create-ftd", Component: CreateFixedTermDepositScreen },
   { path: "/listTopupMoney", Component: ListTopupMoneyScreen },
   { path: "/listCashOut", Component: CashOutListScreen },
   { path: "/createTopupMoney", Component: TopupMoneyFormScreen },

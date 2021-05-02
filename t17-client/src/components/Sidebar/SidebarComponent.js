@@ -43,7 +43,7 @@ const userOptions = [
     { name: "Ingresos", component: AttachMoneyIcon, path: "/listTopupMoney" },
     { name: "Egresos", component: MoneyOffIcon, path: "/listCashOut" },
     { name: "Enviar Dinero", component: MonetizationOnIcon, path: "/construction" },
-    { name: "Plazos Fijos", component: AccountBalanceIcon, path: "/construction" },
+    { name: "Plazos Fijos", component: AccountBalanceIcon, path: "/ftd" },
     { name: "Contactos", component: ContactsIcon, path: "/construction" },
     { name: "Perfil", component: AccountBoxIcon, path: "/profile" },
     { name: "Billeteras", component: AccountBalanceWalletIcon, path: "/billeteras" },

@@ -18,7 +18,7 @@ import useStyles from './TableStyles'
 export default function TableComponent({ data, title }) {
     const classes = useStyles();
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
     const emptyRows =
         rowsPerPage -
         Math.min(rowsPerPage, data.length - page * rowsPerPage);
@@ -69,9 +69,9 @@ export default function TableComponent({ data, title }) {
                     <TableBody>
                         {(rowsPerPage > 0
                             ? data.slice(
-                                  page * rowsPerPage,
-                                  page * rowsPerPage + rowsPerPage
-                              )
+                                page * rowsPerPage,
+                                page * rowsPerPage + rowsPerPage
+                            )
                             : data
                         ).map((element, index) => (
                             <TableRow key={index}>
