@@ -1,9 +1,10 @@
 import React from 'react'
+import GraphComponent from '../Graph/GraphComponent';
 
 const HomeComponent = () => {
   return (
     <div>
-      T17 Wallet!
+      <GraphComponent />
     </div>
   )
 }

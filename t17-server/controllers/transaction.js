@@ -3,12 +3,16 @@ const consts = require("../constants/consts")
 const accountsQuery = require('../querys/accounts')
 
 const getAllTransactionsByAccount = async (req, res, next) => {
-  const accountId = parseInt(req.params.id);
-  const transactionsByAccount = await transactionQuery.queryGetAllTransactionsByAccount(accountId);
-  if (transactionsByAccount) {
-    res.status(consts.code_success).send(transactionsByAccount);
-  } else {
-    res.status(consts.CODE_FAILURE_404);
+  try {
+    const accountId = parseInt(req.params.id);
+    const transactionsByAccount = await transactionQuery.queryGetAllTransactionsByAccount(accountId);
+    if (transactionsByAccount) {
+      res.status(consts.code_success).send(transactionsByAccount);
+    } else {
+      res.status(consts.CODE_FAILURE_404);
+    }
+  } catch (err) {
+    res.status(consts.code_failure).send({ message: err.message });
   }
 };
 
