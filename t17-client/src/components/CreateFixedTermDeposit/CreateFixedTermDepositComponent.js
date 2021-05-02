@@ -20,6 +20,7 @@ function CreateFixedTermDepositComponent({ user }) {
   const [userUsdAccount, setUserUsdAccount] = useState(0);
   const [userArsBalance, setUserArsBalance] = useState(0);
   const [userUsdBalance, setUserUsdBalance] = useState(0);
+  const [currencyType, setCurrencyType] = useState('ARS');
   const [balanceSelected, setBalanceSelected] = useState(userArsBalance);
   const [accountSelected, setAccountSelected] = useState(userArsAccount);
   const history = useHistory()
@@ -48,6 +49,10 @@ function CreateFixedTermDepositComponent({ user }) {
     })
   });
 
+  useEffect(() => {
+    setCurrencyType((accountSelected === userArsAccount) ? 'ARS' : 'USD')
+  }, [accountSelected])
+
   useEffect(() => { // Sets default account balance selected to ARS balance.
     setBalanceSelected(userArsBalance)
   }, [userArsBalance])
@@ -60,10 +65,11 @@ function CreateFixedTermDepositComponent({ user }) {
       .required(MESSAGE_REQUIRED_CASHOUT_AMMOUNT),
   });
 
-  const postFixedTermDeposit = (userId, accountId, amount, concept, type) => {
+  const postFixedTermDeposit = (userId, accountId, currencyType, amount, concept, type) => {
     const data = {
       userId: userId,
       accountId: accountId,
+      currencyType: currencyType,
       amount: amount,
       concept: concept,
       type: type,
@@ -80,7 +86,7 @@ function CreateFixedTermDepositComponent({ user }) {
     onSubmit: (values, { resetForm }) => {
       values.concept = "plazo fijo"
       values.type = 'payment';
-      postFixedTermDeposit(userId, accountSelected, values.amount, values.concept, values.type)
+      postFixedTermDeposit(userId, accountSelected, currencyType, values.amount, values.concept, values.type)
       resetForm({ values: '' })
       SuccessAlertComponent(MESSAGE_LOGIN_SUCCESS).then(() =>
         history.push("/ftd")

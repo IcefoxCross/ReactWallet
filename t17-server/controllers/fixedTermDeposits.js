@@ -15,7 +15,7 @@ const getAllFixedTermDepositsByUser = async (req, res, next) => {
 };
 
 const createFixedTermDeposit = (req, res, next) => {
-    queryCreateFixedTermDeposit(req.body.amount, req.body.closingDate, req.body.userId)
+    queryCreateFixedTermDeposit(req.body.amount, req.body.currencyType, req.body.closingDate, req.body.userId)
     queryCreateTransaction(req.body.amount, req.body.concept, req.body.type, req.body.accountId)
         .then((result) => {
             res.status(consts.REQ_SUCCESS).send(consts.SUCCESS_FTD_CREATE);

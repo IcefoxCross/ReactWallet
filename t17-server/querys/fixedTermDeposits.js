@@ -10,9 +10,9 @@ queryGetAllFixedTermDepositsByUser = async (id) => {
     return fixedTermDeposits
 };
 
-queryCreateFixedTermDeposit = async (amount, closingData, userId) => {
+queryCreateFixedTermDeposit = async (amount, currencyType, closingData, userId) => {
     try {
-        const newFixedTermDeposit = await FixedTermDeposit.create({ amount, closingData, userId });
+        const newFixedTermDeposit = await FixedTermDeposit.create({ amount, currencyType, closingData, userId });
         return newFixedTermDeposit;
     } catch (err) {
         return err;

@@ -52,6 +52,7 @@ function ListFixedTermDepositComponent({ user }) {
             </TableRow>
             <TableRow>
               <TableCell align="center">Monto</TableCell>
+              <TableCell align="center">Moneda</TableCell>
               <TableCell align="center">
                 Fecha de cierre
                             </TableCell>
@@ -72,6 +73,11 @@ function ListFixedTermDepositComponent({ user }) {
                   align="center"
                 >
                   {element.amount}
+                </TableCell>
+                <TableCell
+                  align="center"
+                >
+                  {element.currencyType}
                 </TableCell>
                 <TableCell align="center">
                   {element.closinng_date ? element.closinng_date : '-'}

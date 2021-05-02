@@ -12,6 +12,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      currencyType: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       closingDate: {
         type: Sequelize.DATE,
         allowNull: true,
