@@ -30,7 +30,7 @@ function ListTopupMoneyComponent({user}) {
         const fetchAPI = async () => {
             if(userId!==0) {
                 const dataTopupMoney = await httpGetAll(
-                    `transaction/topup/userId/${userId}`
+                    `transaction/byType/topup/userId/${userId}`
                 );
                 setTopupMoneyList(dataTopupMoney.data);
             }

@@ -6,21 +6,9 @@ import {
   Grid,
   Button,
 } from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
-
 const CashOutForm = ({ formik, accountSelected, userArsAccount, userUsdAccount, setAccountSelected }) => {
-  const classes = useStyles();
   return (
     <Container maxWidth="sm">
       <form onSubmit={formik.handleSubmit} >
