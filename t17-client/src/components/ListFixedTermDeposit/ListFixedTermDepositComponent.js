@@ -11,6 +11,8 @@ import {
   Container, Typography, TableFooter, TablePagination, Grid
 } from "@material-ui/core";
 import useStyles from './ListFixedTermDepositStyles'
+import TableComponent from './TableComponent';
+import HeaderButton from '../ListTopupMoney/HeaderButtonsComponent';
 import PaginationTable from './PaginationTable/PaginationTableComponent';
 import { httpGetOne } from '../../services/httpServices';
 
@@ -33,96 +35,29 @@ function ListFixedTermDepositComponent({ user }) {
     setPage(0);
   };
   return (
-    <Container maxWidth="sm">
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="custom pagination table">
-          <TableHead>
-            <TableRow>
-              <TableCell colSpan={3}>
-                <Grid>
-                  <Typography
-                    variant="subtitle1"
-                    color="initial"
-                    className={classes.tableTitle}
-                  >
-                    Plazos Fijos
-                  </Typography>
-                </Grid>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell align="center">Monto</TableCell>
-              <TableCell align="center">Moneda</TableCell>
-              <TableCell align="center">
-                Fecha de cierre
-                            </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {(rowsPerPage > 0
-              ? fixedTerms.slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage
-              )
-              : fixedTerms
-            ).map((element, index) => (
-              <TableRow key={index}>
-                <TableCell
-                  component="th"
-                  scope="row"
-                  align="center"
-                >
-                  {element.amount}
-                </TableCell>
-                <TableCell
-                  align="center"
-                >
-                  {element.currencyType}
-                </TableCell>
-                <TableCell align="center">
-                  {element.closinng_date ? element.closinng_date : '-'}
-                </TableCell>
-              </TableRow>
-            ))}
-
-            {emptyRows > 0 && (
-              <TableRow style={{ height: 53 * emptyRows }}>
-                <TableCell colSpan={6} />
-              </TableRow>
-            )}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                classes={{
-                  spacer: classes.spacer,
-                  root: classes.root,
-                }}
-                rowsPerPageOptions={[
-                  5,
-                  10,
-                  25,
-                  { label: "All", value: -1 },
-                ]}
-                colSpan={3}
-                count={fixedTerms.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                labelRowsPerPage="Lineas"
-                SelectProps={{
-                  inputProps: {
-                    "aria-label": "rows per page",
-                  },
-                  native: true,
-                }}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-                ActionsComponent={PaginationTable}
-              />
-            </TableRow>
-          </TableFooter>
-        </Table>
-      </TableContainer>
+    <Container>
+      <Grid
+        container
+        spacing={2}
+        direction="column"
+        justify="center"
+        alignItems="center"
+        alignContent="stretch"
+        wrap="nowrap"
+      >
+        <Grid item container>
+          <HeaderButton
+            text="Crear plazo fijo"
+            sendTo="/create-ftd"
+          />
+        </Grid>
+        <Grid item container>
+          <TableComponent
+            data={fixedTerms}
+            title="Plazos Fijos"
+          ></TableComponent>
+        </Grid>
+      </Grid>
     </Container>
   );
 }
