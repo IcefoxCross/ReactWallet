@@ -12,6 +12,14 @@ exports.createUser = (firstName, lastName, email, password) => {
 
 exports.getUserByEmail = (email) => {
     return User.findOne({
-        where: {email}
+        where: { email }
     });
 };
+
+exports.getAllUsers = () => {
+    return User.findAll({
+        attributes: {
+            exclude: ['password']
+        }
+    });
+}
