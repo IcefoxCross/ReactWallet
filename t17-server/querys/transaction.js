@@ -38,7 +38,7 @@ const querygetTransactionsByType = async (typeTransaction, userId) => {
                           model: User,
                           as: "user",
                           where: { id: userId },
-                          attributes: ["id"],
+                          attributes: [],
                           required: true,
                       },
                   ],
