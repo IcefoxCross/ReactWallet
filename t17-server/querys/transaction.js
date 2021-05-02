@@ -4,13 +4,29 @@ const User = db.User;
 const Account = db.Account;
 
 
-queryGetAllTransactionsByAccount = async (id) => {
+queryGetAllTransactionsByAccount = async (userId) => {
   const transactions = await Transaction.findAll({
-    where: {
-      accountId: id,
-    },
+    required: true,
+      include: [
+        {
+          model: Account,
+          as: "account",
+          attributes: ["currencyType"],
+          required: true,
+          include: [
+            {
+              model: User,
+              as: "user",
+              where: { id: userId },
+              attributes: [],
+              required: true,
+            },
+          ],
+        },
+      ],
+      order: [["createdAt", "DESC"]],
   });
-  return transactions
+  return transactions;
 };
 
 queryCreateTransaction = async (amount, concept, type, accountId) => {

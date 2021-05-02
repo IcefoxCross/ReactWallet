@@ -30,7 +30,7 @@ function ListCashOutComponent({ user }) {
         const fetchAPI = async () => {
             if(userId!==0) {
                 const dataCashOutList = await httpGetAll(
-                    `transaction/payment/userId/${userId}`
+                    `transaction/byType/payment/userId/${userId}`
                 );
                 setCashOutList(dataCashOutList.data);
             }
