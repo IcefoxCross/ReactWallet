@@ -45,7 +45,7 @@ const userOptions = [
     { name: "Enviar Dinero", component: MonetizationOnIcon, path: "/construction" },
     { name: "Plazos Fijos", component: AccountBalanceIcon, path: "/construction" },
     { name: "Contactos", component: ContactsIcon, path: "/construction" },
-    { name: "Perfil", component: AccountBoxIcon, path: "/construction" },
+    { name: "Perfil", component: AccountBoxIcon, path: "/profile" },
     { name: "Billeteras", component: AccountBalanceWalletIcon, path: "/billeteras" },
 ];
 
