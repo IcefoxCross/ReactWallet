@@ -46,7 +46,7 @@ function CreateFixedTermDepositComponent({ user }) {
       setUserArsBalance(res.data.arsBalance);
       setUserUsdBalance(res.data.usdBalance);
     })
-  })
+  });
 
   useEffect(() => { // Sets default account balance selected to ARS balance.
     setBalanceSelected(userArsBalance)

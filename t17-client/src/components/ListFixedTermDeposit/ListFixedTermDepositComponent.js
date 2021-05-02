@@ -8,7 +8,7 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Container, Typography, TableFooter, TablePagination
+  Container, Typography, TableFooter, TablePagination, Grid
 } from "@material-ui/core";
 import useStyles from './ListFixedTermDepositStyles'
 import PaginationTable from './PaginationTable/PaginationTableComponent';
@@ -39,13 +39,15 @@ function ListFixedTermDepositComponent({ user }) {
           <TableHead>
             <TableRow>
               <TableCell colSpan={3}>
-                <Typography
-                  variant="subtitle1"
-                  color="initial"
-                  className={classes.tableTitle}
-                >
-                  Plazos Fijos
-                                </Typography>
+                <Grid>
+                  <Typography
+                    variant="subtitle1"
+                    color="initial"
+                    className={classes.tableTitle}
+                  >
+                    Plazos Fijos
+                  </Typography>
+                </Grid>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -72,9 +74,7 @@ function ListFixedTermDepositComponent({ user }) {
                   {element.amount}
                 </TableCell>
                 <TableCell align="center">
-                  {element.closinng_date === null
-                    ? "-"
-                    : element.closinng_date}
+                  {element.closinng_date ? element.closinng_date : '-'}
                 </TableCell>
               </TableRow>
             ))}

@@ -81,7 +81,7 @@ const CreateFixedTermDepositForm = (
               size="large"
               data-testid="cashout-button"
             >
-              Retirar
+              Crear
           </Button>
           </Grid>
         </Grid>
