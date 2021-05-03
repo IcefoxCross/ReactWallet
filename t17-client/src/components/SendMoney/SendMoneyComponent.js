@@ -4,7 +4,7 @@ import * as yup from 'yup'
 import { connect } from "react-redux";
 import { SuccessAlertComponent } from '../Alerts/AlertsComponent';
 import {
-  MESSAGE_LOGIN_SUCCESS,
+  SENDMONEY_SUCCESS,
 } from "../../constants/constants";
 import { useHistory } from 'react-router';
 import { httpGetAll, httpPost } from '../../services/httpServices';
@@ -95,7 +95,7 @@ function SendMoneyComponent({ user }) {
       httpPost("transaction", dataPost);
       httpPost("transaction", dataPostReceive);
       resetForm({ values: "" })
-      SuccessAlertComponent(MESSAGE_LOGIN_SUCCESS).then(() =>
+      SuccessAlertComponent(SENDMONEY_SUCCESS).then(() =>
         history.push("/listTopupMoney")
       );
     },
