@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -51,6 +52,7 @@ const userOptions = [
 
 const SidebarComponent = (props) => {
     const classes = useStyles();
+    const history = useHistory();
 
     const onLogout = () => {
         ConfirmAlertComponent(MESSAGE_LOGOUT_CONFIRM)
@@ -59,6 +61,7 @@ const SidebarComponent = (props) => {
                     props.updateIsAuth(false);
                     props.updateUser([]);
                     window.localStorage.removeItem('token');
+                    history.push("/home");
                 }
             });
     };

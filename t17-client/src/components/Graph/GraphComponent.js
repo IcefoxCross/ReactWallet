@@ -24,25 +24,32 @@ const GraphComponent = ({user}) => {
             });
     }, [user]);
 
-    return (
-        <Container maxWidth="auto">
-            <Paper>
-                <ResponsiveContainer width='100%' height={350}>
-                <LineChart data={graphData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line type="monotone" dataKey="IngresosARS" strokeWidth stroke="#82ca9d" />
-                    <Line type="monotone" dataKey="EgresosARS" stroke="#FF3250" />
-                    <Line type="monotone" dataKey="IngresosUSD" stroke="#82ca0a" />
-                    <Line type="monotone" dataKey="EgresosUSD" stroke="#FF3210" />
-                </LineChart>
-                </ResponsiveContainer>
-            </Paper>
-        </Container>
-    )
+    if (graphData.length) {
+        return (
+            <Container maxWidth="auto">
+                <Paper>
+                    <ResponsiveContainer width='100%' height={350}>
+                    <LineChart data={graphData}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Line type="monotone" dataKey="IngresosARS" strokeWidth stroke="#82ca9d" />
+                        <Line type="monotone" dataKey="EgresosARS" stroke="#FF3250" />
+                        <Line type="monotone" dataKey="IngresosUSD" stroke="#82ca0a" />
+                        <Line type="monotone" dataKey="EgresosUSD" stroke="#FF3210" />
+                    </LineChart>
+                    </ResponsiveContainer>
+                </Paper>
+            </Container>
+        )
+    } else {
+        return (
+            <>
+            </>
+        )
+    }
 };
 
 function mapStateToProps(state) {
