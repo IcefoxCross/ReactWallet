@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     LineChart, Line, Legend,
     CartesianGrid, XAxis, YAxis,
@@ -22,7 +22,7 @@ const GraphComponent = ({user}) => {
                 let data = processTransactions(transactions);
                 setGraphData(data);
             });
-    }, []);
+    }, [user]);
 
     return (
         <Container maxWidth="auto">
