@@ -62,7 +62,7 @@ export default function TableComponent({ data, title }) {
                         <TableRow>
                             <TableCell align="center" className={classes.columnTitle}>Cantidad</TableCell>
                             <TableCell align="center" className={classes.columnTitle}>Concepto</TableCell>
-                            <TableCell align="center" className={classes.columnTitle}>Cuenta</TableCell>
+                            <TableCell align="center" className={classes.columnTitle}>Moneda</TableCell>
                             <TableCell align="center" className={classes.columnTitle}>Fecha de Creación</TableCell>
                         </TableRow>
                     </TableHead>
@@ -80,7 +80,7 @@ export default function TableComponent({ data, title }) {
                                     scope="row"
                                     align="center"
                                 >
-                                    {element.amount}
+                                    {"$ " + element.amount}
                                 </TableCell>
                                 <TableCell
                                     component="th"
@@ -96,7 +96,7 @@ export default function TableComponent({ data, title }) {
                                     scope="row"
                                     align="center"
                                 >
-                                    {element.accountId}
+                                    {element.account.currencyType}
                                 </TableCell>
                                 <TableCell
                                     component="th"
