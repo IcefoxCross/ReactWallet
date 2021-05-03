@@ -42,9 +42,9 @@ const useStyles = makeStyles((theme) => ({
 const userOptions = [
     { name: "Ingresos", component: AttachMoneyIcon, path: "/listTopupMoney" },
     { name: "Egresos", component: MoneyOffIcon, path: "/listCashOut" },
-    { name: "Enviar Dinero", component: MonetizationOnIcon, path: "/construction" },
+    { name: "Enviar Dinero", component: MonetizationOnIcon, path: "/send-money" },
     { name: "Plazos Fijos", component: AccountBalanceIcon, path: "/ftd" },
-    { name: "Contactos", component: ContactsIcon, path: "/construction" },
+    { name: "Contactos", component: ContactsIcon, path: "/contacts" },
     { name: "Perfil", component: AccountBoxIcon, path: "/profile" },
     { name: "Billeteras", component: AccountBalanceWalletIcon, path: "/billeteras" },
 ];

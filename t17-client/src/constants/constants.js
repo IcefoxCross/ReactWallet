@@ -44,3 +44,7 @@ export const CONFIRM_TITLE = "¿Está seguro?";
 
 export const MESSAGE_REQUIRED_FTD_AMMOUNT = "Es necesario que ingrese un monto";
 export const MESSAGE_NOT_ENOUGH_MONEY = "No tienes tanto dinero en tu cuenta";
+
+// Transferencias
+
+export const SENDMONEY_SUCCESS = "Has enviado dinero correctamente";
